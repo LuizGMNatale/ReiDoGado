@@ -8,7 +8,7 @@ package com.mycompany.reidogadoclasses;
  *
  * @author Pelus
  */
-public class Produtoc {
+public class Produto {
     
     private int id;
     private String nomeProd;
@@ -18,7 +18,7 @@ public class Produtoc {
     private double valorVenda;
     private String tipo;
 
-    public Produtoc(int id, String nomeProd, int quantidade, int Peso, double valorCompra, double valorVenda, String tipo) {
+    public Produto(int id, String nomeProd, int quantidade, int Peso, double valorCompra, double valorVenda, String tipo) {
         this.nomeProd = nomeProd;
         this.quantidade = quantidade;
         this.Peso = Peso;

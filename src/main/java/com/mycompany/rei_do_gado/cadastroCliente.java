@@ -4,6 +4,8 @@
  */
 package com.mycompany.rei_do_gado;
 
+import com.mycompany.rei_do_gadoBD.ClienteDao;
+import com.mycompany.reidogadoclasses.Cliente;
 import javax.swing.JOptionPane;
 
 /**
@@ -117,11 +119,22 @@ public class cadastroCliente extends javax.swing.JFrame {
 
         jLabel7.setText("Email:");
 
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
+            }
+        });
+
         try {
             txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCpfActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Telefone:");
 
@@ -145,6 +158,11 @@ public class cadastroCliente extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtTelefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefoneActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -304,57 +322,24 @@ public class cadastroCliente extends javax.swing.JFrame {
               JOptionPane.showMessageDialog(rootPane, msgs);
           }
 
+        String nome = (txtNome.getText());
+        String endereco = (txtEndereco.getText());
+        String cep = (txtCep.getText());
+        String cpf = (txtCpf.getText());
+        String email = (txtEmail.getText());
+        String telefone = (txtTelefone.getText());
+        String sexo = (cboSexo.getSelectedItem().toString());
+        String estadoCivil = (cboEstadoCivil.getSelectedItem().toString());
         
-
-       
-      String clientePreenchido = objValidador.ClienteCamposVazios(
-             txtNome.getText(),
-        txtEndereco.getText(),
-        txtCpf.getText().replace(".", "").replace("-", "").replaceAll(" ", ""), 
-        txtCep.getText().replaceAll("/", "").replaceAll(" ", ""), 
-            cboEstadoCivil.getSelectedItem().toString().replaceAll(" ", ""),
-            txtEndereco.getText(), 
-            txtEmail.getText(), 
-            txtTelefone.getText());
-
-        //Se os campos obrigatórios estiverem okay
-        if (clientePreenchido.equalsIgnoreCase("") || clientePreenchido == "")
-        {
-
-            //valida se os campos foram preenchidos com o tamanho correto
-            String clienteTamanhoOK = objValidador.ClienteCamposTamanho(
-             txtNome.getText(),
-            txtCpf.getText(),
-            txtCep.getText(),
-       cboEstadoCivil.getSelectedItem(), 
-            txtEndereco.getText(),
-            txtEmail.getText(), 
-            txtTelefone.getText(), 
-            txtEmail.getText());
-          
-
-            //Se os campos forem preenchidos com o tamanho correto
-            if (clienteTamanhoOK.equalsIgnoreCase("") || clienteTamanhoOK == "")
-            {
-
-                String respostaController = null;
-
-            }else//se os campos foram preenchidos com tamanhos incorretos 
-            {
-                JOptionPane.showMessageDialog(rootPane, 
-                    "Os campos abaixo ultrapassaram os limites de caracteres:" 
-                            + clienteTamanhoOK + 
-                            "\nPreencha os campo corretamente e tente novamente!",
-                    "Erro", JOptionPane.INFORMATION_MESSAGE);
-            }
-
-        }
-        else//se os campos obrigatorios nao foram preenchidos
-        {
-            JOptionPane.showMessageDialog(this,"O(s) campo(s) abaixo:\n"+clientePreenchido+
-                "Não foram preenchidos, preencha-os e tente novamente!");
-        }
+        Cliente novoCliente = new Cliente(nome, sexo, telefone, email, cpf, endereco, cep, estadoCivil);
         
+        boolean retorno = ClienteDao.salvar(novoCliente);
+        if (retorno == true) {
+            JOptionPane.showMessageDialog(rootPane, "Sucesso");
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Falha");
+            
+        }
         
     }//GEN-LAST:event_btnCadActionPerformed
 
@@ -381,6 +366,18 @@ public class cadastroCliente extends javax.swing.JFrame {
     private void txtCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCepActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCepActionPerformed
+
+    private void txtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCpfActionPerformed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void txtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefoneActionPerformed
 
     /**
      * @param args the command line arguments

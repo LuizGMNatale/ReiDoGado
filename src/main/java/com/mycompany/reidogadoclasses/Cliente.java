@@ -10,49 +10,43 @@ import java.util.Date;
  *
  * @author Pelus
  */
-public class Clientec {
+public class Cliente {
     
     private int id;
     private String nome;
-    private char sexo;
-    private Date dataNascimento;
+    private String sexo;
     private String telefone;
     private String email;
-    private String rg;
+    private String Cpf;
     private String endereco;
     private String cep;
     private String estadoCivil;
 
-    public String getEstadoCivil() {
+   
+
+    public Cliente(String nome, String sexo, String telefone, String email, String Cpf, String endereco, String cep, String estadoCivil) {
+        this.nome = nome;
+        this.sexo = sexo;
+        this.telefone = telefone;
+        this.email = email;
+        this.Cpf = Cpf;
+        this.endereco = endereco;
+        this.cep = cep;
+        this.estadoCivil = estadoCivil;
+    }
+
+    public Cliente() {
+    }
+
+   
+     public String getEstadoCivil() {
         return estadoCivil;
     }
 
     public void setEstadoCivil(String estadoCivil) {
         this.estadoCivil = estadoCivil;
     }
-
-    public Clientec(int id, String nome, char sexo, Date dataNascimento, String telefone, String email, String rg, String endereco, String cep, String estadoCivil) {
-        this.id = id;
-        this.nome = nome;
-        this.sexo = sexo;
-        this.dataNascimento = dataNascimento;
-        this.telefone = telefone;
-        this.email = email;
-        this.rg = rg;
-        this.endereco = endereco;
-        this.cep = cep;
-        this.estadoCivil = estadoCivil;
-    }
-
-    public Clientec(int id, String nome, char sexo, String telefone, String rg, String endereco) {
-        this.id = id;
-        this.nome = nome;
-        this.sexo = sexo;
-        this.telefone = telefone;
-        this.rg = rg;
-        this.endereco = endereco;
-    }
-
+    
     public int getId() {
         return id;
     }
@@ -69,20 +63,12 @@ public class Clientec {
         this.nome = nome;
     }
 
-    public char getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(char sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
-    }
-
-    public Date getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(Date dataNascimento) {
-        this.dataNascimento = dataNascimento;
     }
 
     public String getTelefone() {
@@ -101,12 +87,12 @@ public class Clientec {
         this.email = email;
     }
 
-    public String getRg() {
-        return rg;
+    public String getCpf() {
+        return Cpf;
     }
 
-    public void setRg(String rg) {
-        this.rg = rg;
+    public void setcpf(String Cpf) {
+        this.Cpf = Cpf;
     }
 
     public String getEndereco() {
