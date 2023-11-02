@@ -14,14 +14,18 @@ public class relatorio {
     private int idProd;
     private String nome;
     private int quantidade;
+    private double valorKg;
     private double valorUnit;
     private double valorTotal;
-
+    
+    
+    
     public relatorio(int idItem, int idProd, String nome, int quantidade, double valorUnit, double valorTotal) {
         this.idItem = idItem;
         this.idProd = idProd;
         this.nome = nome;
         this.quantidade = quantidade;
+        this.valorKg = valorKg;
         this.valorUnit = valorUnit;
         this.valorTotal = valorTotal;
     }

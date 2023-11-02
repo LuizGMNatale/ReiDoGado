@@ -18,6 +18,15 @@ public class Produtoc {
     private double valorVenda;
     private String tipo;
 
+    public Produtoc(int id, String nomeProd, int quantidade, int Peso, double valorCompra, double valorVenda, String tipo) {
+        this.nomeProd = nomeProd;
+        this.quantidade = quantidade;
+        this.Peso = Peso;
+        this.valorCompra = valorCompra;
+        this.valorVenda = valorVenda;
+        this.tipo = tipo;
+    }
+
     public int getId() {
         return id;
     }
@@ -31,15 +40,6 @@ public class Produtoc {
     }
 
     public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public Produtoc(int id, String nomeProd, int quantidade, int Peso, double valorCompra, double valorVenda, String tipo) {
-        this.nomeProd = nomeProd;
-        this.quantidade = quantidade;
-        this.Peso = Peso;
-        this.valorCompra = valorCompra;
-        this.valorVenda = valorVenda;
         this.tipo = tipo;
     }
 
