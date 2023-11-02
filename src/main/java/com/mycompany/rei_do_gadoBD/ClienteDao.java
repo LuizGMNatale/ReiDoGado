@@ -8,7 +8,9 @@ import com.mycompany.reidogadoclasses.Cliente;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -63,6 +65,61 @@ public class ClienteDao {
         
         return retorno;
         
+    }
+    
+    public static ArrayList<Cliente> listar(){
+        
+        ArrayList<Cliente> lista = new ArrayList<>();
+        
+        Connection conexao = null;
+        PreparedStatement comandoSQL = null;
+        ResultSet rs = null;
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            
+            DriverManager.getConnection(url,login,senha);
+            
+            conexao.prepareStatement("SELECT * FROM Cliente");
+            
+            rs = comandoSQL.executeQuery();
+            
+            if (rs != null) {
+                while (rs.next()) {                    
+                    Cliente item = new Cliente();
+                    item.setId(rs.getInt("id_CLi"));
+                    item.setNome(rs.getNString("nome"));
+                    item.setEndereco(rs.getNString("endereco"));
+                    item.setCep(rs.getNString("cep"));
+                    item.setcpf(rs.getNString("cpf"));
+                    item.setEmail(rs.getNString("email"));
+                    item.setSexo(rs.getNString("sexo"));
+                    item.setEstadoCivil(rs.getNString("estadoCivil"));
+                    
+                    lista.add(item);
+                }
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            
+            if (conexao != null) {
+                try {
+                    conexao.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+            
+        }
+        
+        
+        
+        return lista;
     }
     
     
