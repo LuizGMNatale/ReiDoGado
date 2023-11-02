@@ -1,7 +1,11 @@
 package com.mycompany.rei_do_gado;
 
+import com.mycompany.rei_do_gadoBD.ClienteDao;
+import com.mycompany.reidogadoclasses.Cliente;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 public class menuPrincipal extends javax.swing.JFrame {
 
@@ -153,6 +157,11 @@ public class menuPrincipal extends javax.swing.JFrame {
         txtBuscarCli.setText("Buscar Cliente");
 
         btnBuscarCli.setText("Buscar");
+        btnBuscarCli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarCliActionPerformed(evt);
+            }
+        });
 
         tabCli.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -641,6 +650,30 @@ public class menuPrincipal extends javax.swing.JFrame {
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRemoveActionPerformed
+
+    private void btnBuscarCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCliActionPerformed
+        
+        ArrayList<Cliente> lista = ClienteDao.listar();
+        
+        DefaultTableModel modelo = (DefaultTableModel) tabCli.getModel();
+        modelo.setRowCount(0);
+        
+        
+        for (Cliente item : lista) {
+            modelo.addRow(new String[]{
+                         String.valueOf(item.getId()),
+                         String.valueOf(item.getNome()),
+                         String.valueOf(item.getCep()),
+                         String.valueOf(item.getCpf()),
+                         String.valueOf(item.getEmail()),
+                         String.valueOf(item.getTelefone()),
+                         String.valueOf(item.getSexo()),
+                         String.valueOf(item.getEstadoCivil())
+            
+        });
+        }
+       
+    }//GEN-LAST:event_btnBuscarCliActionPerformed
 
     public static void main(String args[]) {
 
