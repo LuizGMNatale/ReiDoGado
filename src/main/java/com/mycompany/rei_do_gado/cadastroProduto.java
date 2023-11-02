@@ -17,6 +17,10 @@ public class cadastroProduto extends javax.swing.JFrame {
      */
     public cadastroProduto() {
         initComponents();
+        txtCodProd.setDocument(new ValidadorNumeros());
+        txtQuant.setDocument(new ValidadorNumeros());
+        txtValor.setDocument(new ValidadorNumeros());
+        txtValor1.setDocument(new ValidadorNumeros());       
     }
 
     /**
@@ -164,7 +168,7 @@ public class cadastroProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+       this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed

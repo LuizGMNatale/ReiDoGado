@@ -156,19 +156,6 @@ public class Validador {
              return false;
          }
      }
-     
-    public void ValidarRadio(JRadioButton jbr, JRadioButton jrb) {
-
-        try {
-            if (jbr.getSelectedObjects().equals(null)) {
-                throw new IllegalArgumentException();
-            }
-        } catch (IllegalArgumentException e) {
-            this.mensagensErro.add("Selecione o tipo de venda do produto Unitario ou Kg " + jbr.getName());
-            jbr.setBackground(Color.RED);
-        }
-
-   } 
 
     String ClienteCamposVazios(String text, String replaceAll, String replaceAll0, String replaceAll1, String text0, String text1, String text2, String text7) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

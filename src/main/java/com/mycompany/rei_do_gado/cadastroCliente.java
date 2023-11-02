@@ -17,6 +17,9 @@ public class cadastroCliente extends javax.swing.JFrame {
      */
     public cadastroCliente() {
         initComponents();
+        txtCpf.setDocument(new ValidadorNumeros());
+        txtCep.setDocument(new ValidadorNumeros());
+        txtTelefone.setDocument(new ValidadorNumeros());
     }
 
     public void limparFormulario(){
@@ -364,7 +367,7 @@ public class cadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-       
+       this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void cboSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSexoActionPerformed
@@ -405,13 +408,13 @@ public class cadastroCliente extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(cadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new cadastroCliente().setVisible(true);
             }
         });
+       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
