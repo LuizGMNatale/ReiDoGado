@@ -28,13 +28,14 @@ public class ClienteDao {
         boolean retorno = false;
         Connection conexao = null;
         PreparedStatement comandoSQL = null;
+        ResultSet rs = null;
         
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             
             conexao = DriverManager.getConnection(url,login, senha);
             comandoSQL = conexao.prepareStatement("INSERT INTO CLIENTE (nome, sexo, telefone, email, cpf, endereco, cep, estadoCivil) "
-                    + "Values (?,?,?,?,?,?,?,?)");
+                    + "Values (?,?,?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
             comandoSQL.setString(1, novoCliente.getNome());
             comandoSQL.setString(2, novoCliente.getSexo());
             comandoSQL.setString(3, novoCliente.getTelefone());
@@ -47,6 +48,15 @@ public class ClienteDao {
             int linhasAfetadas = comandoSQL.executeUpdate();
             if (linhasAfetadas > 0) {
                 retorno = true;
+                
+                rs = comandoSQL.getGeneratedKeys();
+                
+                if(rs != null){
+                    while (rs.next()){                        
+                        int idGerado = rs.getInt(1);
+                    }
+                }
+                
             }
             
         } catch (ClassNotFoundException ex) {
@@ -78,23 +88,24 @@ public class ClienteDao {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             
-            DriverManager.getConnection(url,login,senha);
+            conexao = DriverManager.getConnection(url,login,senha);
             
-            conexao.prepareStatement("SELECT * FROM Cliente");
+            comandoSQL = conexao.prepareStatement("SELECT * FROM Cliente");
             
             rs = comandoSQL.executeQuery();
             
             if (rs != null) {
                 while (rs.next()) {                    
                     Cliente item = new Cliente();
-                    item.setId(rs.getInt("id_CLi"));
-                    item.setNome(rs.getNString("nome"));
-                    item.setEndereco(rs.getNString("endereco"));
-                    item.setCep(rs.getNString("cep"));
-                    item.setcpf(rs.getNString("cpf"));
-                    item.setEmail(rs.getNString("email"));
-                    item.setSexo(rs.getNString("sexo"));
-                    item.setEstadoCivil(rs.getNString("estadoCivil"));
+                    item.setId(rs.getInt("id_Cli"));
+                    item.setNome(rs.getString("nome"));
+                    item.setEndereco(rs.getString("endereco"));
+                    item.setCep(rs.getString("cep"));
+                    item.setcpf(rs.getString("cpf"));
+                    item.setEmail(rs.getString("email"));
+                    item.setTelefone(rs.getString("telefone"));
+                    item.setSexo(rs.getString("sexo"));
+                    item.setEstadoCivil(rs.getString("estadoCivil"));
                     
                     lista.add(item);
                 }

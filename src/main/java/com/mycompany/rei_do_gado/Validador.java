@@ -150,7 +150,7 @@ public class Validador {
      
      public boolean hasErro(){
      
-         if(this.mensagensErro.size()>0){
+         if(!this.mensagensErro.isEmpty()){
             return true;    
          }else{
              return false;

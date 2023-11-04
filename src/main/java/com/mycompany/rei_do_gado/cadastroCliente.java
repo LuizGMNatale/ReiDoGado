@@ -316,12 +316,7 @@ public class cadastroCliente extends javax.swing.JFrame {
         } 
         
         if(!objValidador.hasErro()){
-              this.dispose();
-          }else{
-              String msgs = objValidador.getMensagensErro();
-              JOptionPane.showMessageDialog(rootPane, msgs);
-          }
-
+            
         String nome = (txtNome.getText());
         String endereco = (txtEndereco.getText());
         String cep = (txtCep.getText());
@@ -340,6 +335,13 @@ public class cadastroCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Falha");
             
         }
+        
+              this.dispose();
+          }else{
+              String msgs = objValidador.getMensagensErro();
+              JOptionPane.showMessageDialog(rootPane, msgs);
+          }
+
         
     }//GEN-LAST:event_btnCadActionPerformed
 

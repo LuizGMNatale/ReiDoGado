@@ -5,6 +5,7 @@ import com.mycompany.reidogadoclasses.Cliente;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class menuPrincipal extends javax.swing.JFrame {
@@ -58,7 +59,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         btnRemove = new javax.swing.JButton();
         pnlRelatorios = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tabRelatorios2 = new javax.swing.JTable();
+        tabRelatorio2 = new javax.swing.JTable();
         lblTotal = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -66,7 +67,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         lblDataInicio = new javax.swing.JLabel();
         lblDataFinal = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        tabRekatorios1 = new javax.swing.JTable();
+        tabRelatorio1 = new javax.swing.JTable();
         dacDataInicio = new com.toedter.calendar.JDateChooser();
         dacDataFinal = new com.toedter.calendar.JDateChooser();
         btnBuscar = new javax.swing.JButton();
@@ -153,6 +154,11 @@ public class menuPrincipal extends javax.swing.JFrame {
         });
 
         btnDelCli.setText("Exluir Cliente");
+        btnDelCli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelCliActionPerformed(evt);
+            }
+        });
 
         txtBuscarCli.setText("Buscar Cliente");
 
@@ -163,19 +169,20 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        tabCli.setAutoCreateRowSorter(true);
         tabCli.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Cod Prod", "Nome Produto", "Preço Unit.", "Preço KG"
+                "ID", "NOME", "CEP", "CPF", "EMAIL", "TELEFONE", "SEXO", "ESTADO CIVIL"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -186,6 +193,10 @@ public class menuPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabCli.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tabCli.setColumnSelectionAllowed(true);
+        tabCli.setGridColor(new java.awt.Color(153, 153, 153));
+        tabCli.setShowGrid(true);
         tabCli.getTableHeader().setResizingAllowed(false);
         tabCli.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tabCli);
@@ -194,40 +205,39 @@ public class menuPrincipal extends javax.swing.JFrame {
         pnlClientes.setLayout(pnlClientesLayout);
         pnlClientesLayout.setHorizontalGroup(
             pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlClientesLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlClientesLayout.createSequentialGroup()
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlClientesLayout.createSequentialGroup()
                         .addComponent(txtBuscarCli, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBuscarCli, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlClientesLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnDelCli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEditCli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCadCli, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE))
-                        .addGap(9, 9, 9))))
+                        .addComponent(btnCadCli)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEditCli, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDelCli, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 799, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         pnlClientesLayout.setVerticalGroup(
             pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlClientesLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBuscarCli, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarCli))
-                .addGap(12, 12, 12)
                 .addGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlClientesLayout.createSequentialGroup()
-                        .addComponent(btnCadCli, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEditCli, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDelCli, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(135, Short.MAX_VALUE))
+                        .addGap(19, 19, 19)
+                        .addComponent(txtBuscarCli, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlClientesLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnBuscarCli)
+                            .addComponent(btnCadCli)
+                            .addComponent(btnEditCli)
+                            .addComponent(btnDelCli))))
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(175, Short.MAX_VALUE))
         );
 
         tabClientes.addTab("tabClientes", pnlClientes);
@@ -470,7 +480,7 @@ public class menuPrincipal extends javax.swing.JFrame {
 
         tabClientes.addTab("tabVendas", pnlVenda);
 
-        tabRelatorios2.setModel(new javax.swing.table.DefaultTableModel(
+        tabRelatorio2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -478,9 +488,9 @@ public class menuPrincipal extends javax.swing.JFrame {
                 "Cod Produto", "Nome Produto", "Valor KG", "Valor Unitário", "Valor Total"
             }
         ));
-        tabRelatorios2.getTableHeader().setResizingAllowed(false);
-        tabRelatorios2.getTableHeader().setReorderingAllowed(false);
-        jScrollPane4.setViewportView(tabRelatorios2);
+        tabRelatorio2.getTableHeader().setResizingAllowed(false);
+        tabRelatorio2.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(tabRelatorio2);
 
         lblTotal.setText("Total:");
 
@@ -509,7 +519,7 @@ public class menuPrincipal extends javax.swing.JFrame {
 
         lblDataFinal.setText("Data Final");
 
-        tabRekatorios1.setModel(new javax.swing.table.DefaultTableModel(
+        tabRelatorio1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -517,10 +527,10 @@ public class menuPrincipal extends javax.swing.JFrame {
                 "Id", "Data da Venda", "CPF", "Nome Cliente", "Total de Itens", "Valor Total"
             }
         ));
-        tabRekatorios1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tabRekatorios1.getTableHeader().setResizingAllowed(false);
-        tabRekatorios1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane5.setViewportView(tabRekatorios1);
+        tabRelatorio1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tabRelatorio1.getTableHeader().setResizingAllowed(false);
+        tabRelatorio1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane5.setViewportView(tabRelatorio1);
 
         dacDataInicio.setDateFormatString("dd/MM/yyyy");
 
@@ -550,7 +560,7 @@ public class menuPrincipal extends javax.swing.JFrame {
                         .addGroup(pnlRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
                             .addComponent(jScrollPane4))))
-                .addContainerGap(406, Short.MAX_VALUE))
+                .addContainerGap(203, Short.MAX_VALUE))
             .addGroup(pnlRelatoriosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -587,7 +597,7 @@ public class menuPrincipal extends javax.swing.JFrame {
                     .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addContainerGap(143, Short.MAX_VALUE))
         );
 
         tabClientes.addTab("tabRelatorios", pnlRelatorios);
@@ -628,7 +638,18 @@ public class menuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditProdActionPerformed
 
     private void btnEditCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditCliActionPerformed
-        // TODO add your handling code here:
+      
+        int linhaSelecionada = tabCli.getSelectedRow();
+        
+        if (linhaSelecionada >= 0) {
+            
+            
+            
+        }else{
+            JOptionPane.showMessageDialog(rootPane, evt);
+        }
+        
+        
     }//GEN-LAST:event_btnEditCliActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -674,6 +695,10 @@ public class menuPrincipal extends javax.swing.JFrame {
         }
        
     }//GEN-LAST:event_btnBuscarCliActionPerformed
+
+    private void btnDelCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelCliActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDelCliActionPerformed
 
     public static void main(String args[]) {
 
@@ -751,8 +776,8 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable tabCli;
     private javax.swing.JTabbedPane tabClientes;
     private javax.swing.JTable tabProd;
-    private javax.swing.JTable tabRekatorios1;
-    private javax.swing.JTable tabRelatorios2;
+    private javax.swing.JTable tabRelatorio1;
+    private javax.swing.JTable tabRelatorio2;
     private javax.swing.JTable tabVenda;
     private javax.swing.JTextField txtBuscarCli;
     private javax.swing.JTextField txtBuscarProd;
