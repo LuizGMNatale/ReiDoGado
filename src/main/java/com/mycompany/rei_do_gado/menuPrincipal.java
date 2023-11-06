@@ -161,6 +161,19 @@ public class menuPrincipal extends javax.swing.JFrame {
         });
 
         txtBuscarCli.setText("Buscar Cliente");
+        txtBuscarCli.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBuscarCliFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBuscarCliFocusLost(evt);
+            }
+        });
+        txtBuscarCli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarCliActionPerformed(evt);
+            }
+        });
 
         btnBuscarCli.setText("Buscar");
         btnBuscarCli.addActionListener(new java.awt.event.ActionListener() {
@@ -175,14 +188,14 @@ public class menuPrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "NOME", "CEP", "CPF", "EMAIL", "TELEFONE", "SEXO", "ESTADO CIVIL"
+                "ID", "NOME", "CEP", "ENDEREÇO", "CPF", "EMAIL", "TELEFONE", "SEXO", "ESTADO CIVIL"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -641,12 +654,40 @@ public class menuPrincipal extends javax.swing.JFrame {
       
         int linhaSelecionada = tabCli.getSelectedRow();
         
+        DefaultTableModel modelo = (DefaultTableModel) tabCli.getModel();
+        
         if (linhaSelecionada >= 0) {
+            
+            int idSelecionado = Integer.parseInt( modelo.getValueAt(linhaSelecionada, 0).toString());
+            
+            String nomeSelecionado = (String) modelo.getValueAt(linhaSelecionada, 1);
+            
+            String cepSelecionado = (String) modelo.getValueAt(linhaSelecionada, 2);
+            
+            String enderecoSelecionado = (String) modelo.getValueAt(linhaSelecionada, 3);
+            
+            String cpfSelecionado = (String) modelo.getValueAt(linhaSelecionada, 4);
+            
+            String emailSelecionado = (String) modelo.getValueAt(linhaSelecionada, 5);
+            
+            String telefoneSelecionado = (String) modelo.getValueAt(linhaSelecionada, 6);
+            
+            String sexoSelecionado = (String) modelo.getValueAt(linhaSelecionada, 7);
+            
+            String estadoCivilSelecionado = (String) modelo.getValueAt(linhaSelecionada, 8);
+            
+            Cliente objAlterar = new Cliente(idSelecionado, nomeSelecionado, cepSelecionado,
+                    enderecoSelecionado, cpfSelecionado, emailSelecionado, telefoneSelecionado,
+                    sexoSelecionado, estadoCivilSelecionado);
+            
+            
+            cadastroCliente telaAlterar = new cadastroCliente(objAlterar);
+            telaAlterar.setVisible(true);
             
             
             
         }else{
-            JOptionPane.showMessageDialog(rootPane, evt);
+            JOptionPane.showMessageDialog(rootPane, "Selecione uma linha!");
         }
         
         
@@ -685,6 +726,7 @@ public class menuPrincipal extends javax.swing.JFrame {
                          String.valueOf(item.getId()),
                          String.valueOf(item.getNome()),
                          String.valueOf(item.getCep()),
+                         String.valueOf(item.getEndereco()),
                          String.valueOf(item.getCpf()),
                          String.valueOf(item.getEmail()),
                          String.valueOf(item.getTelefone()),
@@ -697,8 +739,31 @@ public class menuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarCliActionPerformed
 
     private void btnDelCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelCliActionPerformed
-        // TODO add your handling code here:
+      
+        int linhaSelecionada = tabCli .getSelectedRow();
+        
+        DefaultTableModel modelo = (DefaultTableModel) tabCli.getModel();
+        int idExcluir = Integer.parseInt(modelo.getValueAt(linhaSelecionada, 0).toString());
+        boolean retorno = ClienteDao.excluir(idExcluir);
+        if (retorno) {
+            JOptionPane.showMessageDialog(rootPane, "Sucesso!");
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Falha!");
+        }
+        
     }//GEN-LAST:event_btnDelCliActionPerformed
+
+    private void txtBuscarCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarCliActionPerformed
+    
+    }//GEN-LAST:event_txtBuscarCliActionPerformed
+
+    private void txtBuscarCliFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarCliFocusGained
+          txtBuscarCli.setText("");
+    }//GEN-LAST:event_txtBuscarCliFocusGained
+
+    private void txtBuscarCliFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarCliFocusLost
+           txtBuscarCli.setText("Buscar Cliente");
+    }//GEN-LAST:event_txtBuscarCliFocusLost
 
     public static void main(String args[]) {
 

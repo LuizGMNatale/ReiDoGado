@@ -212,6 +212,11 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Buscar Cliente"/>
               </Properties>
+              <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtBuscarCliFocusGained"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtBuscarCliFocusLost"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBuscarCliActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnBuscarCli">
               <Properties>
@@ -232,10 +237,11 @@
                   <Properties>
                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="8" rowCount="0">
+                      <Table columnCount="9" rowCount="0">
                         <Column editable="false" title="ID" type="java.lang.String"/>
                         <Column editable="false" title="NOME" type="java.lang.String"/>
                         <Column editable="false" title="CEP" type="java.lang.String"/>
+                        <Column editable="false" title="ENDERE&#xc7;O" type="java.lang.String"/>
                         <Column editable="false" title="CPF" type="java.lang.String"/>
                         <Column editable="false" title="EMAIL" type="java.lang.String"/>
                         <Column editable="false" title="TELEFONE" type="java.lang.String"/>

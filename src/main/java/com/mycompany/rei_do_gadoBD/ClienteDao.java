@@ -75,7 +75,7 @@ public class ClienteDao {
         
         return retorno;
         
-    }
+    }// fim do salvar
     
     public static ArrayList<Cliente> listar(){
         
@@ -131,7 +131,85 @@ public class ClienteDao {
         
         
         return lista;
+    }//fim do listar
+    
+        public static boolean alterar(Cliente novoCliente){
+        boolean retorno = false;
+        Connection conexao = null;
+        PreparedStatement comandoSQL = null;
+        ResultSet rs = null;
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            
+            conexao = DriverManager.getConnection(url,login, senha);
+            comandoSQL = conexao.prepareStatement("UPDATE CLIENTE SET nome =?, sexo =?, telefone =?, email=? , cpf=? , endereco=? , cep=? , estadoCivil=? WHERE id_Cli =? ");
+            comandoSQL.setString(1, novoCliente.getNome());
+            comandoSQL.setString(2, novoCliente.getSexo());
+            comandoSQL.setString(3, novoCliente.getTelefone());
+            comandoSQL.setString(4, novoCliente.getEmail());
+            comandoSQL.setString(5, novoCliente.getCpf());
+            comandoSQL.setString(6, novoCliente.getEndereco());
+            comandoSQL.setString(7, novoCliente.getCep());
+            comandoSQL.setString(8, novoCliente.getEstadoCivil());
+            comandoSQL.setInt(9, novoCliente.getId());
+            
+            int linhasAfetadas = comandoSQL.executeUpdate();
+            if (linhasAfetadas > 0) {
+                retorno = true;
+            }
+            
+        } catch (ClassNotFoundException ex) {
+           retorno = false;
+        } catch (SQLException ex) {
+           retorno = false;
+        }finally{
+            if(conexao != null){
+                try {
+                    conexao.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+        }
+        
+        return retorno;
+        
+    }// fim do alterar
+        
+        public static boolean excluir(int idEcluir){
+        boolean retorno = false;
+        Connection conexao = null;
+        PreparedStatement comandoSQL = null;
+        ResultSet rs = null;
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            
+            conexao = DriverManager.getConnection(url,login, senha);
+            comandoSQL = conexao.prepareStatement("DELETE FROM Cliente WHERE id_Cli =? ");
+            comandoSQL.setInt(1,idEcluir);
+            
+            int linhasAfetadas = comandoSQL.executeUpdate();
+            if (linhasAfetadas > 0) {
+                retorno = true;
+            }
+            
+        } catch (ClassNotFoundException ex) {
+           retorno = false;
+        } catch (SQLException ex) {
+           retorno = false;
+        }finally{
+            if(conexao != null){
+                try {
+                    conexao.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+        }
+        
+        return retorno;
+        
     }
-    
-    
 }

@@ -6,6 +6,7 @@ package com.mycompany.rei_do_gado;
 
 import com.mycompany.rei_do_gadoBD.ClienteDao;
 import com.mycompany.reidogadoclasses.Cliente;
+import javax.print.DocFlavor;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,9 +15,9 @@ import javax.swing.JOptionPane;
  */
 public class cadastroCliente extends javax.swing.JFrame {
 
-    /**
-     * Creates new form cadastroCliente
-     */
+    Cliente objAlterar = null;
+    
+    
     public cadastroCliente() {
         initComponents();
         txtCpf.setDocument(new ValidadorNumeros());
@@ -24,6 +25,20 @@ public class cadastroCliente extends javax.swing.JFrame {
         txtTelefone.setDocument(new ValidadorNumeros());
     }
 
+    public cadastroCliente(Cliente novoCliente) {
+        initComponents();
+        this.objAlterar = novoCliente;
+        txtNome.setText(String.valueOf(objAlterar.getNome()));
+        txtEndereco.setText(String.valueOf(objAlterar.getEndereco()));
+        txtCep.setText(String.valueOf(objAlterar.getCep()));
+        txtCpf.setText(String.valueOf(objAlterar.getCpf()));
+        txtEmail.setText(String.valueOf(objAlterar.getEmail()));
+        txtTelefone.setText(String.valueOf(objAlterar.getTelefone()));
+        cboSexo.setSelectedItem(String.valueOf(objAlterar.getSexo()));
+        cboEstadoCivil.setSelectedItem(String.valueOf(objAlterar.getEstadoCivil()));
+        
+    }
+    
     public void limparFormulario(){
         txtNome.setText("");
         txtEndereco.setText("");
@@ -290,11 +305,11 @@ public class cadastroCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Digite o endereço do cliente");
             objValidador.ValidarTexto(txtEndereco);
         }
-        if (txtCep.getValue() == null) {
+        if (txtCep.getText() == null) {
             JOptionPane.showMessageDialog(null, "Informe o CEP do cliente");
             objValidador.ValidarNumero(txtCep);
         }
-        if (txtCpf.getValue() == null) {
+        if (txtCpf.getText() == null) {
             JOptionPane.showMessageDialog(null, "Informe o CPF do cliente");
             objValidador.ValidarCPF(txtCpf);
         }
@@ -302,7 +317,7 @@ public class cadastroCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Informe o Email do cliente");
             objValidador.ValidarTexto(txtEmail);
         }
-        if (txtTelefone.getValue() == null) {
+        if (txtTelefone.getText() == null) {
             JOptionPane.showMessageDialog(null, "Informe o número para contato");
             objValidador.ValidarNumero(txtTelefone);
         }
@@ -317,14 +332,16 @@ public class cadastroCliente extends javax.swing.JFrame {
         
         if(!objValidador.hasErro()){
             
-        String nome = (txtNome.getText());
-        String endereco = (txtEndereco.getText());
-        String cep = (txtCep.getText());
-        String cpf = (txtCpf.getText());
-        String email = (txtEmail.getText());
-        String telefone = (txtTelefone.getText());
-        String sexo = (cboSexo.getSelectedItem().toString());
-        String estadoCivil = (cboEstadoCivil.getSelectedItem().toString());
+        if(objAlterar == null){
+        
+        String nome = txtNome.getText();
+        String endereco = txtEndereco.getText();
+        String cep = txtCep.getText();
+        String cpf = txtCpf.getText();
+        String email = txtEmail.getText();
+        String telefone = txtTelefone.getText();
+        String sexo = cboSexo.getSelectedItem().toString();
+        String estadoCivil = cboEstadoCivil.getSelectedItem().toString();
         
         Cliente novoCliente = new Cliente(nome, sexo, telefone, email, cpf, endereco, cep, estadoCivil);
         
@@ -333,9 +350,33 @@ public class cadastroCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Sucesso");
         }else{
             JOptionPane.showMessageDialog(rootPane, "Falha");
-            
         }
-        
+        }else{
+            String nome = txtNome.getText();
+            String endereco = txtEndereco.getText();
+            String cep = txtCep.getText();
+            String Cpf = txtCpf.getText();
+            String email = txtEmail.getText();
+            String telefone = txtTelefone.getText();
+            String sexo = cboSexo.getSelectedItem().toString();
+            String estadoCivil = cboEstadoCivil.getSelectedItem().toString();
+            
+            objAlterar.setNome(nome);
+            objAlterar.setEndereco(endereco);
+            objAlterar.setCep(cep);
+            objAlterar.setcpf(Cpf);
+            objAlterar.setEmail(email);
+            objAlterar.setTelefone(telefone);
+            objAlterar.setSexo(sexo);
+            objAlterar.setEstadoCivil(estadoCivil);
+            
+            boolean retorno = ClienteDao.alterar(objAlterar);
+            
+            if (retorno) {
+                JOptionPane.showMessageDialog(rootPane, "Sucesso");
+            }else {
+                 JOptionPane.showMessageDialog(rootPane, "Falha");
+        }}
               this.dispose();
           }else{
               String msgs = objValidador.getMensagensErro();

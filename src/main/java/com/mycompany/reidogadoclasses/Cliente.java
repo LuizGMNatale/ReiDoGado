@@ -35,6 +35,20 @@ public class Cliente {
         this.estadoCivil = estadoCivil;
     }
 
+    public Cliente(int id, String nome, String cep,String endereco, String Cpf, String email, String telefone, String sexo, String estadoCivil) {
+        this.id = id;
+        this.nome = nome;
+        this.endereco = endereco;
+        this.sexo = sexo;
+        this.telefone = telefone;
+        this.email = email;
+        this.Cpf = Cpf;
+        this.cep = cep;
+        this.estadoCivil = estadoCivil;
+    }
+
+    
+    
     public Cliente() {
     }
 
