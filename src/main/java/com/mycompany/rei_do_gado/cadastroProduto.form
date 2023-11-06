@@ -59,7 +59,7 @@
                               <Component id="txtQuant" alignment="1" max="32767" attributes="0"/>
                               <Component id="txtCodProd" alignment="1" max="32767" attributes="0"/>
                               <Component id="txtNomeProd" alignment="1" pref="150" max="32767" attributes="0"/>
-                              <Component id="txtValor1" max="32767" attributes="0"/>
+                              <Component id="txtValorVenda" max="32767" attributes="0"/>
                           </Group>
                           <Component id="cboTipo" min="-2" pref="88" max="-2" attributes="0"/>
                       </Group>
@@ -94,7 +94,7 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtValor1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtValorVenda" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblValor1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -162,7 +162,10 @@
         <Property name="text" type="java.lang.String" value="Valor Venda:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtValor1">
+    <Component class="javax.swing.JTextField" name="txtValorVenda">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtValorVendaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtQuant">
     </Component>

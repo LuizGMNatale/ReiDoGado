@@ -13,19 +13,31 @@ public class Produto {
     private int id;
     private String nomeProd;
     private int quantidade;
-    private int Peso;
-    private double valorCompra;
+    private double valorEntrada;
     private double valorVenda;
-    private String tipo;
+    private String faturacao;
 
-    public Produto(int id, String nomeProd, int quantidade, int Peso, double valorCompra, double valorVenda, String tipo) {
+    public Produto(String nomeProd, int quantidade, double valorEntrada, double valorVenda, String faturacao) {
         this.nomeProd = nomeProd;
         this.quantidade = quantidade;
-        this.Peso = Peso;
-        this.valorCompra = valorCompra;
+        this.valorEntrada = valorEntrada;
         this.valorVenda = valorVenda;
-        this.tipo = tipo;
+        this.faturacao = faturacao;
     }
+
+    public Produto(int id, String nomeProd, int quantidade, double valorEntrada, double valorVenda, String faturacao) {
+        this.id = id;
+        this.nomeProd = nomeProd;
+        this.quantidade = quantidade;
+        this.valorEntrada = valorEntrada;
+        this.valorVenda = valorVenda;
+        this.faturacao = faturacao;
+    }
+
+    public Produto() {
+    }
+
+    
 
     public int getId() {
         return id;
@@ -35,12 +47,12 @@ public class Produto {
         this.id = id;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getFaturacao() {
+        return faturacao;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setFaturacao(String faturacao) {
+        this.faturacao = faturacao;
     }
 
     public String getNomeProd() {
@@ -59,20 +71,13 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
-    public int getPeso() {
-        return Peso;
+
+    public double getValorEntrada() {
+        return valorEntrada;
     }
 
-    public void setPeso(int Peso) {
-        this.Peso = Peso;
-    }
-
-    public double getValorCompra() {
-        return valorCompra;
-    }
-
-    public void setValorCompra(double valorCompra) {
-        this.valorCompra = valorCompra;
+    public void setValorEntrada(double valorEntrada) {
+        this.valorEntrada = valorEntrada;
     }
 
     public double getValorVenda() {

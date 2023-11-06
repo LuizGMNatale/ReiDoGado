@@ -161,20 +161,13 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                              <Component id="txtBuscarCli" min="-2" pref="39" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="btnBuscarCli" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnCadCli" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnEditCli" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnDelCli" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnBuscarCli" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnCadCli" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnEditCli" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnDelCli" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtBuscarCli" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="460" max="-2" attributes="0"/>
@@ -276,26 +269,26 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="txtBuscarProd" min="-2" pref="248" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="btnBuscarProd" min="-2" pref="137" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jScrollPane2" min="-2" pref="800" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jScrollPane2" pref="766" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnEditProd" pref="304" max="32767" attributes="0"/>
-                                  <Component id="btnDelProd" pref="304" max="32767" attributes="0"/>
-                                  <Component id="btnCadProd" alignment="1" pref="304" max="32767" attributes="0"/>
-                              </Group>
+                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                              <Component id="txtBuscarProd" min="-2" pref="248" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="btnBuscarProd" min="-2" pref="120" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnCadProd" min="-2" pref="120" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnEditProd" min="-2" pref="120" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnDelProd" min="-2" pref="120" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="39" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -306,19 +299,12 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="txtBuscarProd" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                           <Component id="btnBuscarProd" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnCadProd" alignment="3" max="32767" attributes="0"/>
+                          <Component id="btnEditProd" alignment="3" max="32767" attributes="0"/>
+                          <Component id="btnDelProd" alignment="3" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="btnCadProd" max="32767" attributes="0"/>
-                              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnEditProd" max="32767" attributes="0"/>
-                              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnDelProd" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="354" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jScrollPane2" min="-2" pref="471" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jScrollPane2" min="-2" pref="471" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="164" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -334,15 +320,20 @@
               <SubComponents>
                 <Component class="javax.swing.JTable" name="tabProd">
                   <Properties>
+                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="5" rowCount="0">
-                        <Column editable="false" title="Cod Produto" type="java.lang.Integer"/>
-                        <Column editable="false" title="Nome Produto" type="java.lang.String"/>
-                        <Column editable="false" title="Pre&#xe7;o Unit." type="java.lang.Double"/>
-                        <Column editable="false" title="Pre&#xe7;o KG." type="java.lang.Double"/>
-                        <Column editable="false" title="Data" type="java.lang.Long"/>
+                      <Table columnCount="6" rowCount="0">
+                        <Column editable="false" title="CODIGO" type="java.lang.Integer"/>
+                        <Column editable="false" title="NOME" type="java.lang.String"/>
+                        <Column editable="false" title="QUANTIDADE" type="java.lang.Integer"/>
+                        <Column editable="false" title="VALOR ENTRADA" type="java.lang.Double"/>
+                        <Column editable="false" title="VALOR VENDA" type="java.lang.Double"/>
+                        <Column editable="true" title="FATURA&#xc7;&#xc3;O" type="java.lang.String"/>
                       </Table>
                     </Property>
+                    <Property name="autoResizeMode" type="int" value="4"/>
+                    <Property name="columnSelectionAllowed" type="boolean" value="true"/>
+                    <Property name="showGrid" type="boolean" value="true"/>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="false" resizingAllowed="false"/>
                     </Property>
@@ -370,11 +361,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Exluir Produto"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDelProdActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtBuscarProd">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Buscar Produto"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBuscarProdActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnBuscarProd">
               <Properties>

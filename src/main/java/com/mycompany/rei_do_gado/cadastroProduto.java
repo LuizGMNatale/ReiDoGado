@@ -20,7 +20,7 @@ public class cadastroProduto extends javax.swing.JFrame {
         txtCodProd.setDocument(new ValidadorNumeros());
         txtQuant.setDocument(new ValidadorNumeros());
         txtValor.setDocument(new ValidadorNumeros());
-        txtValor1.setDocument(new ValidadorNumeros());       
+        txtValorVenda.setDocument(new ValidadorNumeros());       
     }
 
     /**
@@ -42,7 +42,7 @@ public class cadastroProduto extends javax.swing.JFrame {
         txtValor = new javax.swing.JFormattedTextField();
         lblQuant = new javax.swing.JLabel();
         lblValor1 = new javax.swing.JLabel();
-        txtValor1 = new javax.swing.JTextField();
+        txtValorVenda = new javax.swing.JTextField();
         txtQuant = new javax.swing.JTextField();
         txtCodProd = new javax.swing.JTextField();
         lblTipo = new javax.swing.JLabel();
@@ -85,6 +85,12 @@ public class cadastroProduto extends javax.swing.JFrame {
 
         lblValor1.setText("Valor Venda:");
 
+        txtValorVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtValorVendaActionPerformed(evt);
+            }
+        });
+
         txtCodProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCodProdActionPerformed(evt);
@@ -126,7 +132,7 @@ public class cadastroProduto extends javax.swing.JFrame {
                                 .addComponent(txtQuant, javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(txtCodProd, javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(txtNomeProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                .addComponent(txtValor1))
+                                .addComponent(txtValorVenda))
                             .addComponent(cboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
@@ -151,7 +157,7 @@ public class cadastroProduto extends javax.swing.JFrame {
                     .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtValor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblValor1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -190,9 +196,9 @@ public class cadastroProduto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Informe o valor do produto");
             objvalidador.ValidarNumero(txtValor);
         }
-       if (txtValor1.getText().trim().isEmpty()) {
+       if (txtValorVenda.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Informe o valor de venda do produto");
-            objvalidador.ValidarNumero(txtValor1);
+            objvalidador.ValidarNumero(txtValorVenda);
         }
         if (cboTipo.getSelectedItem() == null || cboTipo.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Informe a Faturação do produto");
@@ -220,6 +226,10 @@ public class cadastroProduto extends javax.swing.JFrame {
     private void txtCodProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodProdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodProdActionPerformed
+
+    private void txtValorVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorVendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtValorVendaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -271,6 +281,6 @@ public class cadastroProduto extends javax.swing.JFrame {
     private javax.swing.JTextField txtNomeProd;
     private javax.swing.JTextField txtQuant;
     private javax.swing.JFormattedTextField txtValor;
-    private javax.swing.JTextField txtValor1;
+    private javax.swing.JTextField txtValorVenda;
     // End of variables declaration//GEN-END:variables
 }
