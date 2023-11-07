@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class ProdutoDao {
      static String url = "jdbc:mysql://localhost:3306/baseReiDoGado";
     static String login = "root";
-    static String senha = "P@$$w0rd";
+    static String senha = "";
     
     public static boolean salvar(Produto novoProduto){
         boolean retorno = false;

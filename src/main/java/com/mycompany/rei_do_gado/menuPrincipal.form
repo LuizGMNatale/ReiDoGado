@@ -323,11 +323,11 @@
                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="6" rowCount="0">
-                        <Column editable="false" title="CODIGO" type="java.lang.Integer"/>
+                        <Column editable="false" title="CODIGO" type="java.lang.String"/>
                         <Column editable="false" title="NOME" type="java.lang.String"/>
-                        <Column editable="false" title="QUANTIDADE" type="java.lang.Integer"/>
-                        <Column editable="false" title="VALOR ENTRADA" type="java.lang.Double"/>
-                        <Column editable="false" title="VALOR VENDA" type="java.lang.Double"/>
+                        <Column editable="false" title="QUANTIDADE" type="java.lang.String"/>
+                        <Column editable="false" title="VALOR ENTRADA" type="java.lang.String"/>
+                        <Column editable="false" title="VALOR VENDA" type="java.lang.String"/>
                         <Column editable="false" title="FATURA&#xc7;&#xc3;O" type="java.lang.String"/>
                       </Table>
                     </Property>
@@ -779,7 +779,7 @@
                       </Table>
                     </Property>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Default Cursor"/>
+                      <Color id="Cursor Padr&#xe3;o"/>
                     </Property>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="false" resizingAllowed="false"/>

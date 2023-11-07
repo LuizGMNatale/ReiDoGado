@@ -37,27 +37,19 @@
                       <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="lblCodProd" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblNomeProd" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblQuant" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblValor1" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblValor" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblTipo" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="lblNomeProd" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblQuant" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblValor1" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblValor" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblTipo" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="txtValor" max="32767" attributes="0"/>
                               <Component id="txtQuant" alignment="1" max="32767" attributes="0"/>
-                              <Component id="txtCodProd" alignment="1" max="32767" attributes="0"/>
                               <Component id="txtNomeProd" alignment="1" pref="150" max="32767" attributes="0"/>
                               <Component id="txtValorVenda" max="32767" attributes="0"/>
                           </Group>
@@ -77,32 +69,27 @@
                   <Component id="txtNomeProd" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblNomeProd" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblCodProd" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtCodProd" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblQuant" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtQuant" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblQuant" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblValor" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtValor" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblValor" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="txtValorVenda" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblValor1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblTipo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cboTipo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="31" max="32767" attributes="0"/>
+              <EmptySpace pref="55" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnCancelar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="btnCadastrar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
@@ -116,11 +103,6 @@
     <Component class="javax.swing.JLabel" name="lblNomeProd">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nome do produto:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblCodProd">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="C&#xf3;digo do produto:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblValor">
@@ -168,11 +150,6 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtQuant">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtCodProd">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCodProdActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblTipo">
       <Properties>

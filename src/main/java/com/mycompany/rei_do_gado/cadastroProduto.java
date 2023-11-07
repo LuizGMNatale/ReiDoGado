@@ -4,9 +4,7 @@
  */
 package com.mycompany.rei_do_gado;
 
-import com.mycompany.rei_do_gadoBD.ClienteDao;
 import com.mycompany.rei_do_gadoBD.ProdutoDao;
-import com.mycompany.reidogadoclasses.Cliente;
 import com.mycompany.reidogadoclasses.Produto;
 import javax.swing.JOptionPane;
 
@@ -24,7 +22,6 @@ public class cadastroProduto extends javax.swing.JFrame {
      */
     public cadastroProduto() {
         initComponents();
-        txtCodProd.setDocument(new ValidadorNumeros());
         txtQuant.setDocument(new ValidadorNumeros());
         txtValor.setDocument(new ValidadorNumeros());
         txtValorVenda.setDocument(new ValidadorNumeros());
@@ -52,7 +49,6 @@ public class cadastroProduto extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         lblNomeProd = new javax.swing.JLabel();
-        lblCodProd = new javax.swing.JLabel();
         lblValor = new javax.swing.JLabel();
         btnCadastrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
@@ -62,15 +58,12 @@ public class cadastroProduto extends javax.swing.JFrame {
         lblValor1 = new javax.swing.JLabel();
         txtValorVenda = new javax.swing.JTextField();
         txtQuant = new javax.swing.JTextField();
-        txtCodProd = new javax.swing.JTextField();
         lblTipo = new javax.swing.JLabel();
         cboTipo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblNomeProd.setText("Nome do produto:");
-
-        lblCodProd.setText("Código do produto:");
 
         lblValor.setText("Valor:");
 
@@ -109,12 +102,6 @@ public class cadastroProduto extends javax.swing.JFrame {
             }
         });
 
-        txtCodProd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodProdActionPerformed(evt);
-            }
-        });
-
         lblTipo.setText("Faturação");
 
         cboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "KG", "UNI" }));
@@ -132,23 +119,18 @@ public class cadastroProduto extends javax.swing.JFrame {
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(70, 70, 70))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblCodProd)
-                                .addGap(4, 4, 4))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblNomeProd, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblQuant, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblValor1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblValor, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblTipo, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addComponent(lblNomeProd, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblQuant, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblValor1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblValor, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblTipo, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtValor)
                                 .addComponent(txtQuant, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtCodProd, javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(txtNomeProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                                 .addComponent(txtValorVenda))
                             .addComponent(cboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -161,27 +143,23 @@ public class cadastroProduto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNomeProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNomeProd))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCodProd)
-                    .addComponent(txtCodProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtQuant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblQuant))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblQuant)
-                    .addComponent(txtQuant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblValor)
-                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblValor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblValor1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTipo)
                     .addComponent(cboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -202,10 +180,7 @@ public class cadastroProduto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Digite o nome do produto");
             objvalidador.ValidarTexto(txtNomeProd);
         }
-       if (txtCodProd.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Informe o código do produto");
-            objvalidador.ValidarNumero(txtCodProd);
-        }
+      
        if (txtQuant.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Informe a quantidade do produto");
             objvalidador.ValidarNumero(txtQuant);
@@ -278,10 +253,6 @@ public class cadastroProduto extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtNomeProdActionPerformed
 
-    private void txtCodProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodProdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodProdActionPerformed
-
     private void txtValorVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorVendaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtValorVendaActionPerformed
@@ -326,13 +297,11 @@ public class cadastroProduto extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cboTipo;
-    private javax.swing.JLabel lblCodProd;
     private javax.swing.JLabel lblNomeProd;
     private javax.swing.JLabel lblQuant;
     private javax.swing.JLabel lblTipo;
     private javax.swing.JLabel lblValor;
     private javax.swing.JLabel lblValor1;
-    private javax.swing.JTextField txtCodProd;
     private javax.swing.JTextField txtNomeProd;
     private javax.swing.JTextField txtQuant;
     private javax.swing.JFormattedTextField txtValor;

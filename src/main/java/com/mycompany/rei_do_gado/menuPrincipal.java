@@ -263,7 +263,7 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
@@ -661,9 +661,9 @@ public class menuPrincipal extends javax.swing.JFrame {
 
     private void btnEditProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProdActionPerformed
           
-        int linhaSelecionada = tabCli.getSelectedRow();
+        int linhaSelecionada = tabProd.getSelectedRow();
         
-        DefaultTableModel modelo = (DefaultTableModel) tabCli.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tabProd.getModel();
         
         if (linhaSelecionada >= 0) {
             
@@ -837,11 +837,11 @@ public class menuPrincipal extends javax.swing.JFrame {
         
         for (Produto item : lista) {
             modelo.addRow(new String[]{
-                         Integer.toString(item.getId()),
+                         String.valueOf(item.getId()),
                          String.valueOf(item.getNomeProd()),
-                         Integer.toString(item.getQuantidade()),
-                         Double.toString(item.getValorEntrada()),
-                         Double.toString(item.getValorVenda()),
+                         String.valueOf(item.getQuantidade()),
+                         String.valueOf(item.getValorEntrada()),
+                         String.valueOf(item.getValorVenda()),
                          String.valueOf(item.getFaturacao())
                 });
         }    }//GEN-LAST:event_btnBuscarProdActionPerformed
