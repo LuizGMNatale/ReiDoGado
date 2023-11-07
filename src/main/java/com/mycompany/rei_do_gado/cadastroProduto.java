@@ -4,6 +4,10 @@
  */
 package com.mycompany.rei_do_gado;
 
+import com.mycompany.rei_do_gadoBD.ClienteDao;
+import com.mycompany.rei_do_gadoBD.ProdutoDao;
+import com.mycompany.reidogadoclasses.Cliente;
+import com.mycompany.reidogadoclasses.Produto;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,6 +16,9 @@ import javax.swing.JOptionPane;
  */
 public class cadastroProduto extends javax.swing.JFrame {
 
+    
+    Produto objAlterar = null;
+    
     /**
      * Creates new form cadastroProduto
      */
@@ -20,9 +27,20 @@ public class cadastroProduto extends javax.swing.JFrame {
         txtCodProd.setDocument(new ValidadorNumeros());
         txtQuant.setDocument(new ValidadorNumeros());
         txtValor.setDocument(new ValidadorNumeros());
-        txtValorVenda.setDocument(new ValidadorNumeros());       
+        txtValorVenda.setDocument(new ValidadorNumeros());
     }
-
+    
+    
+    public cadastroProduto(Produto novoProduto) {
+        initComponents();
+        this.objAlterar = novoProduto;
+        txtQuant.setText(Integer.toString(objAlterar.getQuantidade()));
+        txtValor.setText(Double.toString(objAlterar.getValorEntrada()));
+        txtValorVenda.setText(Double.toString(objAlterar.getValorVenda()));
+        cboTipo.setSelectedItem(String.valueOf(objAlterar.getFaturacao()));
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -207,7 +225,44 @@ public class cadastroProduto extends javax.swing.JFrame {
        
        
        if(!objvalidador.hasErro()){
-              this.dispose();
+                   if(objAlterar == null){
+        
+        String nomeProd = txtNomeProd.getText();
+        int quantidade = Integer.parseInt(txtQuant.getText());
+        Double valorEntrada = Double.parseDouble(txtValor.getText());
+        Double valorVenda = Double.parseDouble(txtValorVenda.getText());
+        String faturacao = cboTipo.getSelectedItem().toString();
+        
+        Produto novoProduto = new Produto(nomeProd, quantidade, valorEntrada, valorVenda, faturacao);
+        
+        boolean retorno = ProdutoDao.salvar(novoProduto);
+        if (retorno == true) {
+            JOptionPane.showMessageDialog(rootPane, "Sucesso");
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Falha");
+        }
+        }else{
+            String nomeProd = txtNomeProd.getText();
+            int quantidade = Integer.parseInt(txtQuant.getText());
+            Double valorEntrada = Double.parseDouble(txtValor.getText());
+            Double valorVenda = Double.parseDouble(txtValorVenda.getText());
+            String faturacao = cboTipo.getSelectedItem().toString();
+            
+            objAlterar.setNomeProd(nomeProd);
+            objAlterar.setQuantidade(quantidade);
+            objAlterar.setValorEntrada(valorEntrada);
+            objAlterar.setValorVenda(valorVenda);
+            objAlterar.setFaturacao(faturacao);
+            
+            boolean retorno = ProdutoDao.alterar(objAlterar);
+            
+            if (retorno) {
+                JOptionPane.showMessageDialog(rootPane, "Sucesso");
+            }else {
+                 JOptionPane.showMessageDialog(rootPane, "Falha");
+        }}
+              this.dispose();   
+          
           }else{
               String msgs = objvalidador.getMensagensErro();
               JOptionPane.showMessageDialog(rootPane, msgs);

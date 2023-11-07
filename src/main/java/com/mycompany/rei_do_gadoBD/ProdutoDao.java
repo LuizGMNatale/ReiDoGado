@@ -93,7 +93,7 @@ public class ProdutoDao {
             if (rs != null) {
                 while (rs.next()) {                    
                     Produto item = new Produto();
-                    item.setId(rs.getInt("id_Prod"));
+                    item.setId(rs.getInt("cod_Prod"));
                     item.setNomeProd(rs.getString("nome"));
                     item.setQuantidade(rs.getInt("quantidade"));
                     item.setValorEntrada(rs.getDouble("valorEntrada"));
@@ -142,7 +142,7 @@ public class ProdutoDao {
             comandoSQL.setDouble(4, novoProduto.getValorVenda());
             comandoSQL.setString(5, novoProduto.getFaturacao());
             comandoSQL.setInt(9, novoProduto.getId());
-            
+                
             int linhasAfetadas = comandoSQL.executeUpdate();
             if (linhasAfetadas > 0) {
                 retorno = true;

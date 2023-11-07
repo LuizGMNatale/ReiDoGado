@@ -1,7 +1,9 @@
 package com.mycompany.rei_do_gado;
 
 import com.mycompany.rei_do_gadoBD.ClienteDao;
+import com.mycompany.rei_do_gadoBD.ProdutoDao;
 import com.mycompany.reidogadoclasses.Cliente;
+import com.mycompany.reidogadoclasses.Produto;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.ArrayList;
@@ -264,7 +266,7 @@ public class menuPrincipal extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -311,6 +313,11 @@ public class menuPrincipal extends javax.swing.JFrame {
         });
 
         btnBuscarProd.setText("Buscar");
+        btnBuscarProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarProdActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlProdutosLayout = new javax.swing.GroupLayout(pnlProdutos);
         pnlProdutos.setLayout(pnlProdutosLayout);
@@ -653,7 +660,38 @@ public class menuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadProdActionPerformed
 
     private void btnEditProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProdActionPerformed
-
+          
+        int linhaSelecionada = tabCli.getSelectedRow();
+        
+        DefaultTableModel modelo = (DefaultTableModel) tabCli.getModel();
+        
+        if (linhaSelecionada >= 0) {
+            
+            int idSelecionado = Integer.parseInt( modelo.getValueAt(linhaSelecionada, 0).toString());
+            
+            String nomeSelecionado = (String) modelo.getValueAt(linhaSelecionada, 1);
+            
+            int quantidadeSelecionado = (Integer) modelo.getValueAt(linhaSelecionada, 2);
+            
+            Double ValorEntradaSelecionado = (Double) modelo.getValueAt(linhaSelecionada, 3);
+            
+            Double ValorVendaSelecionado = (Double) modelo.getValueAt(linhaSelecionada, 4);
+            
+            String FaturacaoSelecionado = (String) modelo.getValueAt(linhaSelecionada, 5);
+            
+            Produto ProdAlterar = new Produto(idSelecionado, nomeSelecionado, quantidadeSelecionado, 
+                    ValorEntradaSelecionado,ValorVendaSelecionado,FaturacaoSelecionado);
+            
+            cadastroProduto TelaAlterar = new cadastroProduto(ProdAlterar);
+            TelaAlterar.setVisible(true);
+            
+            
+            
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Selecione uma linha!");
+        }
+        
+        
     }//GEN-LAST:event_btnEditProdActionPerformed
 
     private void btnEditCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditCliActionPerformed
@@ -776,8 +814,37 @@ public class menuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarProdActionPerformed
 
     private void btnDelProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelProdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDelProdActionPerformed
+ 
+        int linhaSelecionada = tabProd.getSelectedRow();
+        
+        DefaultTableModel modelo = (DefaultTableModel) tabProd.getModel();
+        int idExcluir = Integer.parseInt(modelo.getValueAt(linhaSelecionada, 0).toString());
+        boolean retorno = ProdutoDao.excluir(idExcluir);
+        if (retorno) {
+            JOptionPane.showMessageDialog(rootPane, "Sucesso!");
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Falha!");
+        }
+            }//GEN-LAST:event_btnDelProdActionPerformed
+
+    private void btnBuscarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProdActionPerformed
+ 
+        ArrayList<Produto> lista = ProdutoDao.listar();
+        
+        DefaultTableModel modelo = (DefaultTableModel) tabProd.getModel();
+        modelo.setRowCount(0);
+        
+        
+        for (Produto item : lista) {
+            modelo.addRow(new String[]{
+                         Integer.toString(item.getId()),
+                         String.valueOf(item.getNomeProd()),
+                         Integer.toString(item.getQuantidade()),
+                         Double.toString(item.getValorEntrada()),
+                         Double.toString(item.getValorVenda()),
+                         String.valueOf(item.getFaturacao())
+                });
+        }    }//GEN-LAST:event_btnBuscarProdActionPerformed
 
     public static void main(String args[]) {
 

@@ -328,7 +328,7 @@
                         <Column editable="false" title="QUANTIDADE" type="java.lang.Integer"/>
                         <Column editable="false" title="VALOR ENTRADA" type="java.lang.Double"/>
                         <Column editable="false" title="VALOR VENDA" type="java.lang.Double"/>
-                        <Column editable="true" title="FATURA&#xc7;&#xc3;O" type="java.lang.String"/>
+                        <Column editable="false" title="FATURA&#xc7;&#xc3;O" type="java.lang.String"/>
                       </Table>
                     </Property>
                     <Property name="autoResizeMode" type="int" value="4"/>
@@ -377,6 +377,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Buscar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarProdActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
