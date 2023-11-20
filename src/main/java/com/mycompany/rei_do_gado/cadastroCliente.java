@@ -20,6 +20,7 @@ public class cadastroCliente extends javax.swing.JFrame {
     
     public cadastroCliente() {
         initComponents();
+        this.setLocationRelativeTo(null);
         txtCpf.setDocument(new ValidadorNumeros());
         txtCep.setDocument(new ValidadorNumeros());
         txtTelefone.setDocument(new ValidadorNumeros());
@@ -83,6 +84,7 @@ public class cadastroCliente extends javax.swing.JFrame {
         txtTelefone = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Novo Cliente");
 
         btnCad.setText("Cadastrar");
         btnCad.addMouseListener(new java.awt.event.MouseAdapter() {

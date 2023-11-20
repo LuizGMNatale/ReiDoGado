@@ -22,6 +22,7 @@ public class cadastroProduto extends javax.swing.JFrame {
      */
     public cadastroProduto() {
         initComponents();
+        this.setLocationRelativeTo(null);
         txtQuant.setDocument(new ValidadorNumeros());
         txtValor.setDocument(new ValidadorNumeros());
         txtValorVenda.setDocument(new ValidadorNumeros());
@@ -62,6 +63,7 @@ public class cadastroProduto extends javax.swing.JFrame {
         cboTipo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Novo produto");
 
         lblNomeProd.setText("Nome do produto:");
 
