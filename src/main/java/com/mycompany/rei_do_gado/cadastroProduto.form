@@ -134,6 +134,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="txtValor">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtValorKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblQuant">
       <Properties>
@@ -148,9 +151,13 @@
     <Component class="javax.swing.JTextField" name="txtValorVenda">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtValorVendaActionPerformed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtValorVendaKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtQuant">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtQuantKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblTipo">
       <Properties>

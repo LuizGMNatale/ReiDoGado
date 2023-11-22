@@ -6,6 +6,7 @@ package com.mycompany.rei_do_gado;
 
 import com.mycompany.rei_do_gadoBD.ProdutoDao;
 import com.mycompany.reidogadoclasses.Produto;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -94,6 +95,12 @@ public class cadastroProduto extends javax.swing.JFrame {
             }
         });
 
+        txtValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtValorKeyTyped(evt);
+            }
+        });
+
         lblQuant.setText("Quantidade:");
 
         lblValor1.setText("Valor Venda:");
@@ -101,6 +108,17 @@ public class cadastroProduto extends javax.swing.JFrame {
         txtValorVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtValorVendaActionPerformed(evt);
+            }
+        });
+        txtValorVenda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtValorVendaKeyTyped(evt);
+            }
+        });
+
+        txtQuant.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtQuantKeyTyped(evt);
             }
         });
 
@@ -258,6 +276,32 @@ public class cadastroProduto extends javax.swing.JFrame {
     private void txtValorVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorVendaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtValorVendaActionPerformed
+
+    private void txtQuantKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantKeyTyped
+        
+        char c = evt.getKeyChar();
+        
+        if ( ((c < '0' || c > '9')) && c != KeyEvent.VK_BACK_SPACE){
+            evt.consume();
+        }
+        
+    }//GEN-LAST:event_txtQuantKeyTyped
+
+    private void txtValorVendaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorVendaKeyTyped
+       char c = evt.getKeyChar();
+        
+        if ( ((c < '0' || c > '9' ) && c != ',') && c != KeyEvent.VK_BACK_SPACE){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtValorVendaKeyTyped
+
+    private void txtValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyTyped
+        char c = evt.getKeyChar();
+        
+        if ( ((c < '0' || c > '9' ) && c != ',') && c != KeyEvent.VK_BACK_SPACE){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtValorKeyTyped
 
     /**
      * @param args the command line arguments

@@ -63,6 +63,8 @@ public class menuPrincipal extends javax.swing.JFrame {
         btnVenda = new javax.swing.JButton();
         txtProdID = new javax.swing.JTextField();
         btnRemove = new javax.swing.JButton();
+        lblNomeCli = new javax.swing.JLabel();
+        lblNome = new javax.swing.JLabel();
         pnlRelatorios = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tabRelatorio2 = new javax.swing.JTable();
@@ -88,6 +90,7 @@ public class menuPrincipal extends javax.swing.JFrame {
 
         btnVendas.setBackground(new java.awt.Color(51, 255, 255));
         btnVendas.setForeground(new java.awt.Color(0, 0, 0));
+        btnVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dinheiro.png"))); // NOI18N
         btnVendas.setText("Vendas");
         btnVendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +100,7 @@ public class menuPrincipal extends javax.swing.JFrame {
 
         btnRelatorios.setBackground(new java.awt.Color(255, 153, 153));
         btnRelatorios.setForeground(new java.awt.Color(0, 0, 0));
+        btnRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lista.png"))); // NOI18N
         btnRelatorios.setText("Relatórios");
         btnRelatorios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,6 +110,7 @@ public class menuPrincipal extends javax.swing.JFrame {
 
         btnClientes.setBackground(new java.awt.Color(51, 255, 204));
         btnClientes.setForeground(new java.awt.Color(0, 0, 0));
+        btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do-utilizador.png"))); // NOI18N
         btnClientes.setText("Clientes");
         btnClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,10 +135,9 @@ public class menuPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnRelatorios, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnVendas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnProdutos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                        .addComponent(btnClientes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(btnVendas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnProdutos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                    .addComponent(btnClientes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -155,6 +159,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         tabClientes.setMaximumSize(new java.awt.Dimension(1100, 700));
         tabClientes.setPreferredSize(new java.awt.Dimension(1100, 700));
 
+        btnCadCli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do-utilizador add.png"))); // NOI18N
         btnCadCli.setText("Cadastrar Cliente");
         btnCadCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,6 +167,7 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnEditCli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lapis.png"))); // NOI18N
         btnEditCli.setText("Editar Cliente");
         btnEditCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,6 +175,7 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnDelCli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lixo.png"))); // NOI18N
         btnDelCli.setText("Exluir Cliente");
         btnDelCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -265,7 +272,7 @@ public class menuPrincipal extends javax.swing.JFrame {
                     .addComponent(txtBuscarCli, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
 
         tabClientes.addTab("tabClientes", pnlClientes);
@@ -301,6 +308,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         tabProd.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tabProd);
 
+        btnCadProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carrinho-de-compras.png"))); // NOI18N
         btnCadProd.setText("Cadastrar Produto");
         btnCadProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -308,6 +316,7 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnEditProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lapis.png"))); // NOI18N
         btnEditProd.setText("Editar Produto");
         btnEditProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -315,6 +324,7 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnDelProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lixo.png"))); // NOI18N
         btnDelProd.setText("Exluir Produto");
         btnDelProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -451,7 +461,7 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        txtProdID.setText("Clique aqui para pesquisar o profuto...");
+        txtProdID.setText("Clique aqui para pesquisar o produto...");
         txtProdID.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtProdIDMouseClicked(evt);
@@ -465,6 +475,8 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        lblNomeCli.setText("Nome:");
+
         javax.swing.GroupLayout pnlVendaLayout = new javax.swing.GroupLayout(pnlVenda);
         pnlVenda.setLayout(pnlVendaLayout);
         pnlVendaLayout.setHorizontalGroup(
@@ -477,23 +489,30 @@ public class menuPrincipal extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnVenda, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))
-                    .addGroup(pnlVendaLayout.createSequentialGroup()
-                        .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlVendaLayout.createSequentialGroup()
-                        .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtProdID, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblProd))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblQuant)
-                            .addComponent(spnQuant, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ftxCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCPF))))
-                .addContainerGap(309, Short.MAX_VALUE))
+                    .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlVendaLayout.createSequentialGroup()
+                            .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnlVendaLayout.createSequentialGroup()
+                            .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtProdID, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblProd))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblQuant)
+                                .addComponent(spnQuant, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlVendaLayout.createSequentialGroup()
+                                    .addComponent(lblCPF)
+                                    .addGap(57, 57, 57)
+                                    .addComponent(lblNomeCli))
+                                .addGroup(pnlVendaLayout.createSequentialGroup()
+                                    .addComponent(ftxCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         pnlVendaLayout.setVerticalGroup(
             pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -502,12 +521,14 @@ public class menuPrincipal extends javax.swing.JFrame {
                 .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblProd)
                     .addComponent(lblQuant)
-                    .addComponent(lblCPF))
+                    .addComponent(lblCPF)
+                    .addComponent(lblNomeCli))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtProdID, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(spnQuant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ftxCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ftxCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -518,7 +539,7 @@ public class menuPrincipal extends javax.swing.JFrame {
                 .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         tabClientes.addTab("tabVendas", pnlVenda);
@@ -640,7 +661,7 @@ public class menuPrincipal extends javax.swing.JFrame {
                     .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
 
         tabClientes.addTab("tabRelatorios", pnlRelatorios);
@@ -925,6 +946,8 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblCPF;
     private javax.swing.JLabel lblDataFinal;
     private javax.swing.JLabel lblDataInicio;
+    private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblNomeCli;
     private javax.swing.JLabel lblNumTotal;
     private javax.swing.JLabel lblProd;
     private javax.swing.JLabel lblQuant;
