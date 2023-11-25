@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class ProdutoDao {
      static String url = "jdbc:mysql://localhost:3306/baseReiDoGado";
     static String login = "root";
-    static String senha = "";
+    static String senha = "root";
     
     public static boolean salvar(Produto novoProduto){
         boolean retorno = false;
@@ -135,13 +135,13 @@ public class ProdutoDao {
             Class.forName("com.mysql.cj.jdbc.Driver");
             
             conexao = DriverManager.getConnection(url,login, senha);
-            comandoSQL = conexao.prepareStatement("UPDATE Produto SET nome =?, quantidade =?, valorEntrada =?, valorVenda=? , faturacao =? WHERE id_Prod =? ");
+            comandoSQL = conexao.prepareStatement("UPDATE Produto SET nome =?, quantidade =?, valorEntrada =?, valorVenda=? , faturacao =? WHERE cod_Prod =? ");
             comandoSQL.setString(1, novoProduto.getNomeProd());
             comandoSQL.setInt(2, novoProduto.getQuantidade());
             comandoSQL.setDouble(3, novoProduto.getValorEntrada());
             comandoSQL.setDouble(4, novoProduto.getValorVenda());
             comandoSQL.setString(5, novoProduto.getFaturacao());
-            comandoSQL.setInt(9, novoProduto.getId());
+            comandoSQL.setInt(6, novoProduto.getId());
                 
             int linhasAfetadas = comandoSQL.executeUpdate();
             if (linhasAfetadas > 0) {
@@ -176,7 +176,7 @@ public class ProdutoDao {
             Class.forName("com.mysql.cj.jdbc.Driver");
             
             conexao = DriverManager.getConnection(url,login, senha);
-            comandoSQL = conexao.prepareStatement("DELETE FROM Produto WHERE id_Prod =? ");
+            comandoSQL = conexao.prepareStatement("DELETE FROM Produto WHERE cod_Prod =? ");
             comandoSQL.setInt(1,idEcluir);
             
             int linhasAfetadas = comandoSQL.executeUpdate();

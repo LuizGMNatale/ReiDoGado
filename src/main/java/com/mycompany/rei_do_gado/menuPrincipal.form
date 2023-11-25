@@ -50,10 +50,13 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="btnRelatorios" pref="135" max="32767" attributes="0"/>
-                      <Component id="btnVendas" max="32767" attributes="0"/>
-                      <Component id="btnProdutos" alignment="0" pref="135" max="32767" attributes="0"/>
-                      <Component id="btnClientes" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabel1" pref="135" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="btnRelatorios" pref="135" max="32767" attributes="0"/>
+                          <Component id="btnVendas" max="32767" attributes="0"/>
+                          <Component id="btnProdutos" alignment="0" pref="135" max="32767" attributes="0"/>
+                          <Component id="btnClientes" alignment="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace pref="15" max="32767" attributes="0"/>
               </Group>
@@ -62,7 +65,9 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" pref="100" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnClientes" min="-2" pref="43" max="-2" attributes="0"/>
                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                   <Component id="btnProdutos" min="-2" pref="43" max="-2" attributes="0"/>
@@ -119,7 +124,7 @@
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/do-utilizador.png"/>
+              <Image iconType="3" name="/usuarios.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Clientes"/>
           </Properties>
@@ -140,6 +145,14 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProdutosActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/logo.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="jLabel1"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
@@ -374,13 +387,47 @@
                       <Table columnCount="6" rowCount="0">
                         <Column editable="false" title="CODIGO" type="java.lang.String"/>
                         <Column editable="false" title="NOME" type="java.lang.String"/>
-                        <Column editable="false" title="QUANTIDADE" type="java.lang.String"/>
-                        <Column editable="false" title="VALOR ENTRADA" type="java.lang.String"/>
-                        <Column editable="false" title="VALOR VENDA" type="java.lang.String"/>
+                        <Column editable="false" title="QUANTIDADE" type="java.lang.Integer"/>
+                        <Column editable="false" title="VALOR ENTRADA" type="java.lang.Integer"/>
+                        <Column editable="false" title="VALOR VENDA" type="java.lang.Integer"/>
                         <Column editable="false" title="FATURA&#xc7;&#xc3;O" type="java.lang.String"/>
                       </Table>
                     </Property>
                     <Property name="autoResizeMode" type="int" value="4"/>
+                    <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                      <TableColumnModel selectionModel="2">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                      </TableColumnModel>
+                    </Property>
                     <Property name="columnSelectionAllowed" type="boolean" value="true"/>
                     <Property name="showGrid" type="boolean" value="true"/>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
@@ -462,34 +509,32 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnVenda" pref="193" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="btnAdicionar" min="-2" pref="181" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="btnRemove" min="-2" pref="181" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="btnAdicionar" min="-2" pref="181" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnRemove" min="-2" pref="181" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtProdID" alignment="0" min="-2" pref="229" max="-2" attributes="0"/>
+                                  <Component id="lblProd" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtProdID" alignment="0" min="-2" pref="229" max="-2" attributes="0"/>
-                                      <Component id="lblProd" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblQuant" min="-2" max="-2" attributes="0"/>
+                                  <Component id="spnQuant" min="-2" pref="85" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="lblCPF" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                                      <Component id="lblNomeCli" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lblQuant" min="-2" max="-2" attributes="0"/>
-                                      <Component id="spnQuant" min="-2" pref="85" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="lblCPF" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                                          <Component id="lblNomeCli" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="ftxCPF" min="-2" pref="100" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="lblNome" min="-2" pref="308" max="-2" attributes="0"/>
-                                      </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="ftxCPF" min="-2" pref="100" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="lblNome" min="-2" pref="308" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -856,7 +901,7 @@
                       </Table>
                     </Property>
                     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                      <Color id="Cursor Padr&#xe3;o"/>
+                      <Color id="Default Cursor"/>
                     </Property>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="false" resizingAllowed="false"/>
