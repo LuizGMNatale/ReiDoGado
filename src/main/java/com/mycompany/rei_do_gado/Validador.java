@@ -110,23 +110,7 @@ public class Validador {
      
      
      
-     /**@deprecated substituida por {@link #getMensagensErro()}
-      * Método para exibir mensagens de erro na tela com JOptionPane
-      */
-     public void ExibirMensagensErro(){
-         
-        String errosFormulario = "";
-        for (String msg : this.mensagensErro) {
-            errosFormulario += msg + "\n";
-        }
-        
-        if(!errosFormulario.equals("")){
-            JOptionPane.showMessageDialog(null, errosFormulario);
-            this.limparMensagens();
-        }     
 
-     }
-     
      /**
       * Resgata todos os erros gerados em uma única String
       * @return 

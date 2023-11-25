@@ -97,6 +97,11 @@ public class cadastroProduto extends javax.swing.JFrame {
             }
         });
 
+        txtValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtValorActionPerformed(evt);
+            }
+        });
         txtValor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtValorKeyTyped(evt);
@@ -320,6 +325,10 @@ public class cadastroProduto extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtValorKeyTyped
+
+    private void txtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtValorActionPerformed
 
     /**
      * @param args the command line arguments

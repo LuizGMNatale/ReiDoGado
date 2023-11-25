@@ -25,6 +25,14 @@ public class Produto {
         this.faturacao = faturacao;
     }
 
+    public Produto(int id, String nomeProd, int quantidade, double valorVenda, String faturacao) {
+        this.id = id;
+        this.nomeProd = nomeProd;
+        this.quantidade = quantidade;
+        this.valorVenda = valorVenda;
+        this.faturacao = faturacao;
+    }
+
     public Produto(int id, String nomeProd, int quantidade, double valorEntrada, double valorVenda, String faturacao) {
         this.id = id;
         this.nomeProd = nomeProd;
