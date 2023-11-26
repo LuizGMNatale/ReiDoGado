@@ -10,6 +10,8 @@ import com.mycompany.reidogadoclasses.ItemVenda;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,6 +27,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         ftxCPF.setDocument(new ValidadorNumeros());
+        tableModel = (DefaultTableModel) tabVenda.getModel();
 
     }
 
@@ -434,11 +437,11 @@ public class menuPrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id do Produto", "Nome", "Quantidade", "Valor", "Faturação"
+                "ID", "NOME", "QUANTIDADE", "VALOR VENDA", "FATURAÇÃO"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
@@ -498,6 +501,11 @@ public class menuPrincipal extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        ftxCPF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ftxCPFKeyReleased(evt);
+            }
+        });
 
         lblQuant.setText("Quantidade");
 
@@ -506,16 +514,6 @@ public class menuPrincipal extends javax.swing.JFrame {
         spnQuant.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 spnQuantStateChanged(evt);
-            }
-        });
-        spnQuant.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                spnQuantFocusLost(evt);
-            }
-        });
-        spnQuant.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                spnQuantMouseClicked(evt);
             }
         });
 
@@ -636,9 +634,9 @@ public class menuPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30)
+                .addGap(29, 29, 29)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(27, 27, 27)
                 .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -774,8 +772,6 @@ public class menuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-   
     private produtoConsulta consultaProduto;
     private DefaultTableModel tableModel;
     private Produto produto;
@@ -784,73 +780,92 @@ public class menuPrincipal extends javax.swing.JFrame {
     public void atualizaSubtotal() {
         Float subtotal = 0f;
 
-        //faz cálculo de subtotal da compra
-        for (int i = 1; i <= tableModel.getRowCount(); i++) {
-            subtotal += (float) tabVenda.getValueAt(i - 1, 5);
-        }
+        DefaultTableModel tableModel = (DefaultTableModel) tabVenda.getModel();
 
-        //insere valor subtotal da compra na label
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            Object valorColuna4 = tableModel.getValueAt(i, 3);
+
+            try {
+                if (valorColuna4 != null) {
+                    subtotal += Float.parseFloat(valorColuna4.toString());
+                } else {
+                    System.out.println("A coluna de VALOR está vazia na linha " + i);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Erro ao converter valor numérico na linha " + i);
+            }
+        }
         lblSubNumero.setText(subtotal.toString());
     }
-    
-    
-     void preencherCamposDaTelaPrincipal(Produto produto) {
-    // Preenche os campos na tela principal com os dados do produto
+
+    void preencherCamposDaTelaPrincipal(Produto produto) {
         txtProdID.setText(produto.getNomeProd());
-        spnQuant.setValue(1);
         txtValorUnitario.setText(Double.toString(produto.getValorVenda()));
-        txtProdutoValorTotal.setText(Double.toString(produto.getValorVenda() * (Integer) spnQuant.getValue()));
+        txtProdutoValorTotal.setText(Double.toString(produto.getValorVenda()));
+
+        alteraQuantidade();
     }
 
     public void alteraQuantidade() {
-     
-       
         try {
-        // Coloca dados da tela numa instância de produto
-        Produto produtoTela = new Produto();
-        produtoTela.setNomeProd(txtProdID.getText());
-        produtoTela.setValorVenda(Double.parseDouble(txtValorUnitario.getText()));
-        
-        // Verifica se o valor do Spinner não é nulo
-        if (spnQuant.getValue() != null) {
-            produtoTela.setQuantidade((Integer) spnQuant.getValue());
+            Produto produtoTela = new Produto();
+            produtoTela.setNomeProd(txtProdID.getText());
 
-            // Faz o cálculo de valor total
-            double valorTotal = produtoTela.getValorVenda() * (Integer) spnQuant.getValue();
-            
-            txtProdutoValorTotal.setText(Double.toString(valorTotal));
-        } else {
-            // Trate o caso em que o valor do Spinner é nulo
-            System.out.println("O valor do Spinner é nulo.");
+            String valorUnitarioText = txtValorUnitario.getText().trim();
+            if (!valorUnitarioText.isEmpty()) {
+                try {
+                    double valorUnitario = Double.parseDouble(valorUnitarioText.replace(",", "."));
+                    produtoTela.setValorVenda(valorUnitario);
+
+                    if (spnQuant.getValue() != null) {
+                        produtoTela.setQuantidade((Integer) spnQuant.getValue());
+
+                        double valorTotal = produtoTela.getValorVenda() * (Integer) spnQuant.getValue();
+                        txtProdutoValorTotal.setText(Double.toString(valorTotal));
+                    } else {
+
+                        System.out.println("O valor do Spinner é nulo.");
+                    }
+                } catch (NumberFormatException ex) {
+
+                    System.out.println("Formato inválido para o valor unitário.");
+                }
+            } else {
+
+                System.out.println("O campo do valor unitário está vazio.");
+            }
+        } catch (Exception e) {
+
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        // Lida com exceções de forma apropriada
-        e.printStackTrace();
     }
-}
 
-    //VERIFICA A QUANTIDADE EM ESTOQUE
     public boolean verificaEstoque() {
         //Coloca dados da tela numa instancia de produto
-        Produto produtoTela = new Produto();
-        produtoTela.setNomeProd(txtProdID.getText());
-        produtoTela.setQuantidade((Integer) spnQuant.getValue());
+        if (!txtProdID.getText().equalsIgnoreCase("Clique aqui para pesquisar o produto...")) {
+            Produto produtoTela = new Produto();
+            produtoTela.setNomeProd(txtProdID.getText());
+            produtoTela.setQuantidade((Integer) spnQuant.getValue());
+            produtoTela.setValorVenda(Double.parseDouble(txtValorUnitario.getText()));
 
-        Integer quantidadeNaLista = 0;
+            Integer quantidadeNaLista = 0;
 
-        //pega toda a quantidade do produto ja inserida na lista
-        for (int i = 0; i + 1 <= tabVenda.getModel().getRowCount(); i++) {
-            //obtem o id dessa linha
+            //pega toda a quantidade do produto ja inserida na lista
+            for (int i = 0; i + 1 <= tabVenda.getModel().getRowCount(); i++) {
+                //obtem o id dessa linha
 
-            if (produto != null) {
-                if (produto.getId() == (Integer) tabVenda.getValueAt(i, 1)) {
-                    quantidadeNaLista += (Integer) tabVenda.getValueAt(i, 3);
+                if (produto != null) {
+                    if (produto.getId() == (Integer) tabVenda.getValueAt(i, 1)) {
+                        quantidadeNaLista += (Integer) tabVenda.getValueAt(i, 3);
+                    }
                 }
             }
-        }
-        //se a quantidade em estoque for menos que a quantidade solicitada
-        if (produto.getQuantidade() < (produtoTela.getQuantidade() + quantidadeNaLista)) {
-            return false;
+            //se a quantidade em estoque for menos que a quantidade solicitada
+            if (produto.getQuantidade() < (produtoTela.getQuantidade() + quantidadeNaLista)) {
+                return false;
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Pesquise um produto");
         }
         return true;
     }
@@ -979,7 +994,7 @@ public class menuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendaActionPerformed
-/*
+        /*
         venda = new Vendas();
         double valorTotal = 0;
 
@@ -1016,15 +1031,13 @@ public class menuPrincipal extends javax.swing.JFrame {
         venda.setDataVenda(data);
 
         //coloca cada item da venda na lista de itens da venda da instancia de venda
-        for (int i = 0;
-                i
-                + 1 <= tabVenda.getModel()
+        for (int i = 0;i + 1 <= tabVenda.getModel()
                         .getRowCount(); i++) {
             //obtem o id dessa linha
             ItemVenda itemVenda = new ItemVenda();
             itemVenda.setIdVenda(venda.getIdVenda());
             itemVenda.setIdItemVenda((Integer) tabVenda.getValueAt(i, 0));
-            itemVenda.setNomeProd((String) tabVenda.getValueAt(i, 1));
+            itemVenda.setIdProduto((String) tabVenda.getValueAt(i, 1));
             itemVenda.setQtd((Integer) tabVenda.getValueAt(i, 2));
             itemVenda.setVlrUnitario((Double) tabVenda.getValueAt(i, 3));
             itemVenda.setValor((Float) tabelaVenda.getValueAt(i, 4));
@@ -1109,66 +1122,67 @@ public class menuPrincipal extends javax.swing.JFrame {
                     "Venda não registrada",
                     JOptionPane.ERROR_MESSAGE);
         }*/
+
     }//GEN-LAST:event_btnVendaActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        //Obtém a tabela para trabalhar nela
-        tableModel = (DefaultTableModel) tabVenda.getModel();
-        //se a quantidade solicitada for maior que valor em estoque
-        if (verificaEstoque()) {
+        if (!txtProdID.getText().equalsIgnoreCase("Clique aqui para pesquisar o produto...")) {
+            ArrayList<Produto> lista = ItensVendaDAO.buscarProduto(txtProdID);
 
-            if (!txtProdID.getText().equalsIgnoreCase("Clique aqui para pesquisar o produto...")) {
-                Integer idItem;
+            if (!lista.isEmpty()) {
+                DefaultTableModel modelo = (DefaultTableModel) tabVenda.getModel();
+                String nomeProdutoNovo = lista.get(0).getNomeProd();
+                int quantidadeProdutoNovo = (int) spnQuant.getValue();
 
-                //pega numero do ultimo item adicionado
-                Integer ultimaLinha = tabVenda.getModel().getRowCount();
-                if (ultimaLinha < 1) {
-                    idItem = 1;
+                if (quantidadeProdutoNovo > 0) {
+
+                    boolean produtoJaAdicionado = false;
+                    for (int i = 0; i < modelo.getRowCount(); i++) {
+                        String nomeProdutoTabela = modelo.getValueAt(i, 1).toString();
+                        if (nomeProdutoTabela.equalsIgnoreCase(nomeProdutoNovo)) {
+                            produtoJaAdicionado = true;
+                            break;
+                        }
+                    }
+
+                    if (!produtoJaAdicionado) {
+                        // Adiciona o produto à tabela
+                        modelo.addRow(new String[]{
+                            String.valueOf(lista.get(0).getId()),
+                            String.valueOf(lista.get(0).getNomeProd()),
+                            String.valueOf(quantidadeProdutoNovo), // Adiciona a quantidade do Spinner
+                            String.valueOf(txtProdutoValorTotal.getText()),
+                            String.valueOf(lista.get(0).getFaturacao())
+                        });
+
+                        // Chama o método para atualizar o subtotal
+                        atualizaSubtotal();
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Este produto já foi adicionado à venda.");
+                    }
                 } else {
-                    idItem = (Integer) tabVenda.getValueAt(ultimaLinha - 1, 0);
-                    idItem += 1;
+                    JOptionPane.showMessageDialog(rootPane, "A quantidade do produto deve ser maior que zero.");
                 }
-
-                //Cria array com valores do produto
-                Object[] dadosTabela = new Object[6];
-                //Cada dado na coluna correspondente
-                dadosTabela[0] = idItem;
-                dadosTabela[1] = produto.getId();
-                dadosTabela[2] = produto.getNomeProd();
-                dadosTabela[3] = (Integer) spnQuant.getValue();
-                dadosTabela[4] = produto.getValorVenda();
-                dadosTabela[5] = Float.valueOf(txtProdutoValorTotal.getText());
-
-                //Adiciona a linha de dados na tabela
-                tableModel.addRow(dadosTabela);
-
-                atualizaSubtotal();
             }
         } else {
-            //informa usuario que nao tem quantidade suficiente em estoque 
-            //para inserir na venda
-            JOptionPane.showMessageDialog(rootPane,
-                    """
-                Usu\u00e1rio, a quantidade de produtos solicitadas n\u00e3o existem em estoque! 
-                A quantidade deste produto em estoque \u00e9 """ + produto.getQuantidade() + ".",
-                    "Atenção",
-                    JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Selecione um produto.");
         }
-
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         try {
-            //Resgato o índice da linha selecionada
             int row = tabVenda.getSelectedRow();
 
-            //Passo o indice da linha a ser removida
-            tableModel.removeRow(row);
-
-            atualizaSubtotal();
+            // Use diretamente o tableModel
+            if (row != -1) {
+                tableModel.removeRow(row);
+                atualizaSubtotal();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Selecione uma linha para remover.");
+            }
         } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnBuscarCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCliActionPerformed
@@ -1196,11 +1210,25 @@ public class menuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarCliActionPerformed
 
     private void btnDelCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelCliActionPerformed
-
         int linhaSelecionada = tabCli.getSelectedRow();
+        if (linhaSelecionada == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um cliente para excluir.");
+            return;
+        }
 
         DefaultTableModel modelo = (DefaultTableModel) tabCli.getModel();
-        int idExcluir = Integer.parseInt(modelo.getValueAt(linhaSelecionada, 0).toString());
+        if (modelo.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(rootPane, "A tabela está vazia.");
+            return;
+        }
+
+        Object valorCelula = modelo.getValueAt(linhaSelecionada, 0);
+        if (valorCelula == null) {
+            JOptionPane.showMessageDialog(rootPane, "A célula selecionada está vazia.");
+            return;
+        }
+
+        int idExcluir = Integer.parseInt(valorCelula.toString());
         boolean retorno = ClienteDao.excluir(idExcluir);
         if (retorno) {
             JOptionPane.showMessageDialog(rootPane, "Sucesso!");
@@ -1227,17 +1255,31 @@ public class menuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarProdActionPerformed
 
     private void btnDelProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelProdActionPerformed
-
         int linhaSelecionada = tabProd.getSelectedRow();
+        if (linhaSelecionada == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um produto para excluir.");
+            return;
+        }
 
         DefaultTableModel modelo = (DefaultTableModel) tabProd.getModel();
-        int idExcluir = Integer.parseInt(modelo.getValueAt(linhaSelecionada, 0).toString());
-        boolean retorno = ProdutoDao.excluir(idExcluir);
-        if (retorno) {
-            JOptionPane.showMessageDialog(rootPane, "Sucesso!");
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Falha!");
+        if (modelo.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(rootPane, "A tabela está vazia.");
+            return;
         }
+
+        if (linhaSelecionada >= 0 && linhaSelecionada < modelo.getRowCount()) {
+            // Se a linha selecionada for válida, prossiga com o código atual
+            int idExcluir = Integer.parseInt(modelo.getValueAt(linhaSelecionada, 0).toString());
+            boolean retorno = ProdutoDao.excluir(idExcluir);
+            if (retorno) {
+                JOptionPane.showMessageDialog(rootPane, "Sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Falha!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Linha selecionada inválida.");
+        }
+
             }//GEN-LAST:event_btnDelProdActionPerformed
 
     private void btnBuscarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProdActionPerformed
@@ -1306,17 +1348,37 @@ public class menuPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_pnlVendaFocusGained
 
-    private void spnQuantFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_spnQuantFocusLost
-        alteraQuantidade();
-    }//GEN-LAST:event_spnQuantFocusLost
-
     private void spnQuantStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnQuantStateChanged
         alteraQuantidade();
     }//GEN-LAST:event_spnQuantStateChanged
+    private void consultarCliente() {
+        String cpf = formatarCPF(ftxCPF.getText());
+        if (!cpf.isEmpty() && cpf.length() == 14) {
+            // Chama o método do ClienteDAO para buscar as informações do cliente por CPF
+            ArrayList<Cliente> clientes = ClienteDao.buscarClientePorCPF(cpf);
 
-    private void spnQuantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_spnQuantMouseClicked
-       alteraQuantidade();
-    }//GEN-LAST:event_spnQuantMouseClicked
+            if (!clientes.isEmpty()) {
+                // Assume que encontrou o primeiro cliente com o CPF informado
+                Cliente primeiroCliente = clientes.get(0);
+
+                // Atualiza o JLabel com o nome do cliente
+                lblNome.setText(primeiroCliente.getNome());
+            } else {
+                lblNome.setText("Cliente não encontrado.");
+            }
+        } else {
+            lblNome.setText("Por favor, insira um CPF válido.");
+        }
+    }
+
+    private String formatarCPF(String cpf) {
+        // Remove todos os caracteres não numéricos
+        return cpf.replaceAll("^[0-9].-(),", "");
+    }
+
+    private void ftxCPFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftxCPFKeyReleased
+        consultarCliente();
+    }//GEN-LAST:event_ftxCPFKeyReleased
 
     public static void main(String args[]) {
 

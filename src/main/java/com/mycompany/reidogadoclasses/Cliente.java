@@ -47,6 +47,11 @@ public class Cliente {
         this.estadoCivil = estadoCivil;
     }
 
+    public Cliente(int id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
+
     
     
     public Cliente() {

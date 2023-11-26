@@ -14,14 +14,17 @@ import java.util.Date;
  */
 public class Vendas {
     
-    int idVenda;
-    double vlrTotal;
-    int idCliente;
-    Date dataVenda;
+    private int idVenda;
+    private double vlrTotal;
+    private Cliente cliente;
+    private int idCliente;
+    private Date dataVenda;
     
-    private ArrayList<ItemVenda> listaItens = null;
+    private ArrayList<ItemVenda> itensVenda = new ArrayList<>();
 
     public Vendas() {
+        cliente = new Cliente();
+        itensVenda = new ArrayList<ItemVenda>();
     }
 
     public Vendas(int idVenda, double vlrTotal, Date dataVenda) {
@@ -85,12 +88,24 @@ public class Vendas {
             e.printStackTrace();
         }
     }
-      
-     public ArrayList<ItemVenda> getListaItens() {
-        return listaItens;
+
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setListaItens(ArrayList<ItemVenda> listaItens) {
-        this.listaItens = listaItens;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public ArrayList<ItemVenda> getItensVenda() {
+        return itensVenda;
+    }
+
+    public void setItensVenda(ArrayList<ItemVenda> itensVenda) {
+        this.itensVenda = itensVenda;
+    }
+      
+    public void adicionarItem(ItemVenda itemVenda){
+        this.itensVenda.add(itemVenda);
     }
 }

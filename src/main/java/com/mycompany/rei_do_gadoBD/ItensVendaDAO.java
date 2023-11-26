@@ -26,7 +26,7 @@ public class ItensVendaDAO {
     static String Login = "root"; // Alterar para o login do bd salvo no seu pc
     static String Senha = "P@$$w0rd"; // Alterar para a senha do bd salvo no seu pc
     
-    public static ArrayList<Produto> buscarProduto(JTextField txtProdutoNome){
+    public static ArrayList<Produto> buscarProduto(JTextField txtProdID){
         
         Connection conexao = null;
         PreparedStatement comandoSQL = null;
@@ -42,7 +42,7 @@ public class ItensVendaDAO {
             
             //Passo 3 - Preparar o comando SQL
             comandoSQL = conexao.prepareStatement("SELECT * FROM Produto WHERE nome = ?");
-            comandoSQL.setString(1, txtProdutoNome.getText());
+            comandoSQL.setString(1, txtProdID.getText());
 
             //Passo 4 - Executar o comando SQL
             rs = comandoSQL.executeQuery();
