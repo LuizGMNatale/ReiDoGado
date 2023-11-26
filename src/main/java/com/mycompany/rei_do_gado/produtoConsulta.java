@@ -20,9 +20,20 @@ public class produtoConsulta extends javax.swing.JFrame {
     /**
      * Creates new form view
      */
-    public produtoConsulta() {
-        initComponents();
+    
+    private menuPrincipal telaPrincipal;
+
+   
+    public produtoConsulta(menuPrincipal telaPrincipal) {
+        this.telaPrincipal = telaPrincipal;
+            initComponents();
     }
+  
+    public produtoConsulta(){
+    
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -147,6 +158,8 @@ public class produtoConsulta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+     
+    
     public Produto produto;
     
     public Produto getProduto() {
@@ -213,6 +226,7 @@ public class produtoConsulta extends javax.swing.JFrame {
 
     private void produtoTabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_produtoTabelaMouseClicked
         //obtem a linha da tabela
+        if (telaPrincipal != null) {
         int row = produtoTabela.getSelectedRow();
 
         produto = new Produto();
@@ -224,9 +238,11 @@ public class produtoConsulta extends javax.swing.JFrame {
         produto.setValorVenda((Double) produtoTabela.getValueAt(row, 3));
         produto.setFaturacao((String) produtoTabela.getValueAt(row, 4));
         
-        boolean fechou;
+        telaPrincipal.preencherCamposDaTelaPrincipal(produto);
         this.dispose();
-        
+         } else {
+            System.err.println("telaPrincipal é null. Certifique-se de que foi corretamente inicializado.");
+        }
     }//GEN-LAST:event_produtoTabelaMouseClicked
 
     /**

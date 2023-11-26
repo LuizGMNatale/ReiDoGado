@@ -8,7 +8,7 @@ package com.mycompany.reidogadoclasses;
  *
  * @author julio.gslira
  */
-public class itemVenda {
+public class ItemVenda extends Produto{
 
     int idItemVenda;
     int idVenda;
@@ -16,7 +16,12 @@ public class itemVenda {
     double vlrUnitario;
     int qtd;
 
-    public itemVenda(int idItemVenda, int idVenda, int idProduto, double vlrUnitario, int qtd) {
+    public ItemVenda() {
+    }
+
+    
+    
+    public ItemVenda(int idItemVenda, int idVenda, int idProduto, double vlrUnitario, int qtd) {
         this.idItemVenda = idItemVenda;
         this.idVenda = idVenda;
         this.idProduto = idProduto;

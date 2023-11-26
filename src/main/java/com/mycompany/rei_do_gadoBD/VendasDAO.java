@@ -5,7 +5,7 @@
 package com.mycompany.rei_do_gadoBD;
 
 import com.mycompany.reidogadoclasses.Vendas;
-import com.mycompany.reidogadoclasses.itemVenda;
+import com.mycompany.reidogadoclasses.ItemVenda;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -46,7 +46,7 @@ public class VendasDAO {
             if (rs.next()) {
                 int idVenda = rs.getInt(1);
                 
-                for (itemVenda itemVenda : obj.getListaItens()) {
+                for (ItemVenda itemVenda : obj.getListaItens()) {
                     PreparedStatement comandoSQLItem = conexao.prepareStatement("INSERT INTO itemVenda (idVenda, idProduto, vlrUnitario, qtd) VALUES (?, ?, ?, ?)");
                     comandoSQLItem.setInt(1, idVenda);
                     comandoSQLItem.setInt(2, itemVenda.getIdProduto());

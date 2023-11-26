@@ -6,11 +6,17 @@ import com.mycompany.rei_do_gadoBD.ProdutoDao;
 import com.mycompany.reidogadoclasses.Cliente;
 import com.mycompany.reidogadoclasses.Produto;
 import com.mycompany.reidogadoclasses.Vendas;
+import com.mycompany.reidogadoclasses.ItemVenda;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Toolkit;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class menuPrincipal extends javax.swing.JFrame {
@@ -67,7 +73,9 @@ public class menuPrincipal extends javax.swing.JFrame {
         lblNomeCli = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtProdutoValorTotal = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        lblNome = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtValorUnitario = new javax.swing.JTextField();
         pnlRelatorios = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tabRelatorio2 = new javax.swing.JTable();
@@ -495,6 +503,21 @@ public class menuPrincipal extends javax.swing.JFrame {
 
         spnQuant.setModel(new javax.swing.SpinnerNumberModel(0, 0, 999, 1));
         spnQuant.setToolTipText("max: 999");
+        spnQuant.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spnQuantStateChanged(evt);
+            }
+        });
+        spnQuant.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                spnQuantFocusLost(evt);
+            }
+        });
+        spnQuant.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                spnQuantMouseClicked(evt);
+            }
+        });
 
         lblProd.setText("Produtos");
 
@@ -532,7 +555,11 @@ public class menuPrincipal extends javax.swing.JFrame {
 
         txtProdutoValorTotal.setEditable(false);
 
-        jTextField2.setEditable(false);
+        lblNome.setEditable(false);
+
+        jLabel4.setText("valor unitario");
+
+        txtValorUnitario.setEditable(false);
 
         javax.swing.GroupLayout pnlVendaLayout = new javax.swing.GroupLayout(pnlVenda);
         pnlVenda.setLayout(pnlVendaLayout);
@@ -547,29 +574,38 @@ public class menuPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnVenda, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))
                     .addGroup(pnlVendaLayout.createSequentialGroup()
-                        .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlVendaLayout.createSequentialGroup()
                         .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtProdID, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblProd))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(spnQuant, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblQuant))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(txtProdutoValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCPF)
-                            .addComponent(ftxCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlVendaLayout.createSequentialGroup()
+                                .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtProdID, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblProd))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(spnQuant, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblQuant))
+                                .addGap(18, 18, 18)
+                                .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(txtProdutoValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(pnlVendaLayout.createSequentialGroup()
+                                .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNomeCli)
-                            .addComponent(jTextField2))))
+                            .addGroup(pnlVendaLayout.createSequentialGroup()
+                                .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblCPF)
+                                    .addComponent(ftxCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNomeCli)
+                                    .addComponent(lblNome)))
+                            .addGroup(pnlVendaLayout.createSequentialGroup()
+                                .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
         pnlVendaLayout.setVerticalGroup(
@@ -588,11 +624,18 @@ public class menuPrincipal extends javax.swing.JFrame {
                     .addComponent(spnQuant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ftxCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtProdutoValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlVendaLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(pnlVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlVendaLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
@@ -731,65 +774,88 @@ public class menuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+   
     private produtoConsulta consultaProduto;
     private DefaultTableModel tableModel;
     private Produto produto;
     private Vendas venda;
-    
-    
-     public void atualizaSubtotal(){
-        Float subtotal =0f;
-       
+
+    public void atualizaSubtotal() {
+        Float subtotal = 0f;
+
         //faz cálculo de subtotal da compra
-        for(int i = 1; i <=tableModel.getRowCount(); i++){
-            subtotal += (float) tabVenda.getValueAt(i-1, 5);   
+        for (int i = 1; i <= tableModel.getRowCount(); i++) {
+            subtotal += (float) tabVenda.getValueAt(i - 1, 5);
         }
-        
+
         //insere valor subtotal da compra na label
         lblSubNumero.setText(subtotal.toString());
     }
     
-     public void alteraQuantidade(){
-        //Coloca dados da tela numa instancia de produto
-        Produto produtoTela = new Produto();
-        produtoTela.setNomeProd(txtProdID.getText());
-        produtoTela.setQuantidade((Integer) spnQuant.getValue());
-        double valorTotal = 0;
-   
-        //faz calculo de valor total
-        valorTotal = produtoTela.getValorVenda() * produtoTela.getQuantidade();
-        txtProdutoValorTotal.setText(Double.toString(valorTotal));    
-    }
     
+     void preencherCamposDaTelaPrincipal(Produto produto) {
+    // Preenche os campos na tela principal com os dados do produto
+        txtProdID.setText(produto.getNomeProd());
+        spnQuant.setValue(1);
+        txtValorUnitario.setText(Double.toString(produto.getValorVenda()));
+        txtProdutoValorTotal.setText(Double.toString(produto.getValorVenda() * (Integer) spnQuant.getValue()));
+    }
+
+    public void alteraQuantidade() {
+     
+       
+        try {
+        // Coloca dados da tela numa instância de produto
+        Produto produtoTela = new Produto();
+        produtoTela.setNomeProd(txtProdID.getText());
+        produtoTela.setValorVenda(Double.parseDouble(txtValorUnitario.getText()));
+        
+        // Verifica se o valor do Spinner não é nulo
+        if (spnQuant.getValue() != null) {
+            produtoTela.setQuantidade((Integer) spnQuant.getValue());
+
+            // Faz o cálculo de valor total
+            double valorTotal = produtoTela.getValorVenda() * (Integer) spnQuant.getValue();
+            
+            txtProdutoValorTotal.setText(Double.toString(valorTotal));
+        } else {
+            // Trate o caso em que o valor do Spinner é nulo
+            System.out.println("O valor do Spinner é nulo.");
+        }
+    } catch (Exception e) {
+        // Lida com exceções de forma apropriada
+        e.printStackTrace();
+    }
+}
+
     //VERIFICA A QUANTIDADE EM ESTOQUE
-    public boolean verificaEstoque(){
+    public boolean verificaEstoque() {
         //Coloca dados da tela numa instancia de produto
         Produto produtoTela = new Produto();
         produtoTela.setNomeProd(txtProdID.getText());
         produtoTela.setQuantidade((Integer) spnQuant.getValue());
-        
+
         Integer quantidadeNaLista = 0;
-        
+
         //pega toda a quantidade do produto ja inserida na lista
-        for(int i = 0; i+1 <=tabVenda.getModel().getRowCount(); i++){
+        for (int i = 0; i + 1 <= tabVenda.getModel().getRowCount(); i++) {
             //obtem o id dessa linha
-            
-            if(produto != null){
-                if(produto.getId() == (Integer) tabVenda.getValueAt(i, 1)){
+
+            if (produto != null) {
+                if (produto.getId() == (Integer) tabVenda.getValueAt(i, 1)) {
                     quantidadeNaLista += (Integer) tabVenda.getValueAt(i, 3);
                 }
             }
         }
-            //se a quantidade em estoque for menos que a quantidade solicitada
-            if(produto.getQuantidade()<(produtoTela.getQuantidade()+quantidadeNaLista)){
-                return false;
-            }
+        //se a quantidade em estoque for menos que a quantidade solicitada
+        if (produto.getQuantidade() < (produtoTela.getQuantidade() + quantidadeNaLista)) {
+            return false;
+        }
         return true;
     }
 
-    
-    
-    
+
     private void btnRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatoriosActionPerformed
         tabClientes.setSelectedIndex(3);
     }//GEN-LAST:event_btnRelatoriosActionPerformed
@@ -913,27 +979,154 @@ public class menuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendaActionPerformed
-        // TODO add your handling code here:
+/*
+        venda = new Vendas();
+        double valorTotal = 0;
+
+        if (tabVenda.getModel().getRowCount() < 1) {
+            JOptionPane.showMessageDialog(rootPane,
+                    "Você precisa adicionar itens no carrinho!",
+                    "Atencão",
+                    JOptionPane.ERROR_MESSAGE);
+            //sai do método 
+            return;
+        }
+
+        //se não houver cliente na venda
+        if (lblNome == null) {
+
+            //avisa que não existe cliente para registrar junto a venda
+            int respostaConfirmacao = JOptionPane.showConfirmDialog(
+                    rootPane,
+                    "Não existe cliente na venda.\n\n"
+                    + "Deseja continuar?",
+                    "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+
+            //se resposa for não para continuar o registro da venda
+            if (respostaConfirmacao == JOptionPane.NO_OPTION) {
+                //sai do método 
+                return;
+            }
+        }
+
+        //coloca dados da venda na instancia
+        java.util.Date data = new Date();
+        venda.setVlrTotal(Float.parseFloat(lblSubNumero.getText()));
+        venda.setDataVenda(data);
+
+        //coloca cada item da venda na lista de itens da venda da instancia de venda
+        for (int i = 0;
+                i
+                + 1 <= tabVenda.getModel()
+                        .getRowCount(); i++) {
+            //obtem o id dessa linha
+            ItemVenda itemVenda = new ItemVenda();
+            itemVenda.setIdVenda(venda.getIdVenda());
+            itemVenda.setIdItemVenda((Integer) tabVenda.getValueAt(i, 0));
+            itemVenda.setNomeProd((String) tabVenda.getValueAt(i, 1));
+            itemVenda.setQtd((Integer) tabVenda.getValueAt(i, 2));
+            itemVenda.setVlrUnitario((Double) tabVenda.getValueAt(i, 3));
+            itemVenda.setValor((Float) tabelaVenda.getValueAt(i, 4));
+            itemVenda.setValorTotal(itemVenda.getQuantidade() * itemVenda.getValor());
+
+            venda.adicionarItem(itemVenda);
+        }
+
+        //coloca dados do cliente da venda na instancia de venda
+        venda.getCliente()
+                .setNome(txtClienteNomeInfo.getText());
+        venda.getCliente()
+                .setCpf(txtClienteCpfInfo.getText());
+        venda.getCliente()
+                .setCidade(txtClienteCidadeInfo.getText());
+        venda.getCliente()
+                .setLogradouro(txtClienteLogradouroInfo.getText());
+        venda.getCliente()
+                .setNumero(txtClienteNumeroInfo.getText());
+
+        //se o valor pago for maior ou igual que o subtotal da compra
+        if (venda.getPagamentoCartao()
+                + venda.getPagamentoDinheiro() >= venda.getSubtotal()) {
+
+            //envia venda para salvar para o controller
+            respostaController = VendaController.salvar(venda);
+
+            //se a resposta for positiva salva os itens da venda
+            if (respostaController == null) {
+                //salva todos os itens da venda - (faz loop na lista de itens)
+                for (int i = 0; i < venda.getItensVenda().size(); i++) {
+
+                    //envia item da venda para para o controller salvar
+                    respostaController2 = ItensVendaController.salvar(venda.getItensVenda().get(i));
+
+                    //atualiza quantidade de produto em estoque.
+                    //para cada item da venda, pega o produto em estoque
+                    //decrementa a quantidade vendida e envia ele com a quantidade 
+                    //atualizada para o controller atualizar no estoque
+                    Produto produtoAtualizado = ProdutoController.obter(venda.getItensVenda().get(i).getId());
+                    produtoAtualizado.setQuantidade(produtoAtualizado.getQuantidade() - venda.getItensVenda().get(i).getQuantidade());
+                    respostaController3 = ProdutoController.atualizar(produtoAtualizado);
+                }
+
+                //dando tudo certo envia mensagem para usuário o resumo da compra
+                troco = (venda.getPagamentoCartao() + venda.getPagamentoDinheiro()) - venda.getSubtotal();
+                JOptionPane.showMessageDialog(rootPane,
+                        "Venda número " + vendaIndex + " registrada!\n\n"
+                        + "Subtotal da compra R$" + venda.getSubtotal() + "\n"
+                        + "Total pago em Dinheiro R$" + venda.getPagamentoDinheiro() + "\n"
+                        + "Total pago em Cartão R$" + venda.getPagamentoCartao() + "\n"
+                        + "Troco R$" + troco + "\n\n"
+                        + "Agora você pode consultar sua venda em:\n"
+                        + "Menu > Relatório",
+                        "Informe de registro",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                //Limpa o formulário da tela de vendas
+                limpaTelaVenda();
+
+                //Atualiza número da venda na tela de vendas
+                atualizaIndiceVenda();
+            } else//se a resposta do controller for negativa
+            {
+                //Exibe mensagens de erro para o usuário
+                JOptionPane.showMessageDialog(rootPane,
+                        respostaController
+                        + "\n Procure o administrador do sistema!",
+                        "Erro",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+            //se o valor pago for menor que o valor da compra
+        } else {
+            valorFaltante = venda.getSubtotal() - (venda.getPagamentoCartao() + venda.getPagamentoDinheiro());
+            //Exibe mensagens de erro para o usuário
+            JOptionPane.showMessageDialog(rootPane,
+                    "Subtotal da compra R$" + venda.getSubtotal() + "\n"
+                    + "Total em Dinheiro R$" + venda.getPagamentoDinheiro() + "\n"
+                    + "Total em Cartão R$" + venda.getPagamentoCartao() + "\n\n"
+                    + "Faltam R$" + valorFaltante + "\n\n"
+                    + "Complete o e tente novamente.",
+                    "Venda não registrada",
+                    JOptionPane.ERROR_MESSAGE);
+        }*/
     }//GEN-LAST:event_btnVendaActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         //Obtém a tabela para trabalhar nela
-         tableModel = (DefaultTableModel) tabVenda.getModel();
+        tableModel = (DefaultTableModel) tabVenda.getModel();
         //se a quantidade solicitada for maior que valor em estoque
-        if (verificaEstoque()){
-            
-            if (!txtProdID.getText().equalsIgnoreCase("Clique aqui para pesquisar o produto...")) 
-            {
+        if (verificaEstoque()) {
+
+            if (!txtProdID.getText().equalsIgnoreCase("Clique aqui para pesquisar o produto...")) {
                 Integer idItem;
 
                 //pega numero do ultimo item adicionado
                 Integer ultimaLinha = tabVenda.getModel().getRowCount();
-                if(ultimaLinha < 1){
+                if (ultimaLinha < 1) {
                     idItem = 1;
-                }
-                else{
-                    idItem = (Integer) tabVenda.getValueAt(ultimaLinha-1, 0);
-                    idItem +=1;
+                } else {
+                    idItem = (Integer) tabVenda.getValueAt(ultimaLinha - 1, 0);
+                    idItem += 1;
                 }
 
                 //Cria array com valores do produto
@@ -951,31 +1144,31 @@ public class menuPrincipal extends javax.swing.JFrame {
 
                 atualizaSubtotal();
             }
-        }else{
+        } else {
             //informa usuario que nao tem quantidade suficiente em estoque 
             //para inserir na venda
-            JOptionPane.showMessageDialog(rootPane, 
-                """
+            JOptionPane.showMessageDialog(rootPane,
+                    """
                 Usu\u00e1rio, a quantidade de produtos solicitadas n\u00e3o existem em estoque! 
-                A quantidade deste produto em estoque \u00e9 """+produto.getQuantidade()+".",
-                "Atenção", 
-                JOptionPane.INFORMATION_MESSAGE);
+                A quantidade deste produto em estoque \u00e9 """ + produto.getQuantidade() + ".",
+                    "Atenção",
+                    JOptionPane.INFORMATION_MESSAGE);
         }
-    
+
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-            try{
+        try {
             //Resgato o índice da linha selecionada
             int row = tabVenda.getSelectedRow();
 
             //Passo o indice da linha a ser removida
             tableModel.removeRow(row);
-            
+
             atualizaSubtotal();
+        } catch (Exception e) {
         }
-        catch(Exception e){}
-        
+
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnBuscarCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCliActionPerformed
@@ -1082,18 +1275,16 @@ public class menuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarProdFocusLost
 
     private void txtProdIDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtProdIDMouseClicked
-        produtoConsulta prodConsulta = new produtoConsulta();
+        produtoConsulta prodConsulta = new produtoConsulta(this);
         prodConsulta.setVisible(true);
         prodConsulta.setLocationRelativeTo(this);
     }//GEN-LAST:event_txtProdIDMouseClicked
 
     private void pnlVendaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pnlVendaFocusGained
-       
-        
-        
+
         produto = new Produto();
-        
-        try{
+
+        try {
             //coloca dados do produto a partir do produto selecionado 
             //na tela de consulta de produto da venda
             produto.setId(consultaProduto.getProduto().getId());
@@ -1109,12 +1300,23 @@ public class menuPrincipal extends javax.swing.JFrame {
             spnQuant.setValue(1);
             //verifica se o produto selecionado tem mais que 1 item no estoque
             alteraQuantidade();
-            
-        }
-        catch(Exception e){
-            
+
+        } catch (Exception e) {
+
         }
     }//GEN-LAST:event_pnlVendaFocusGained
+
+    private void spnQuantFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_spnQuantFocusLost
+        alteraQuantidade();
+    }//GEN-LAST:event_spnQuantFocusLost
+
+    private void spnQuantStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnQuantStateChanged
+        alteraQuantidade();
+    }//GEN-LAST:event_spnQuantStateChanged
+
+    private void spnQuantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_spnQuantMouseClicked
+       alteraQuantidade();
+    }//GEN-LAST:event_spnQuantMouseClicked
 
     public static void main(String args[]) {
 
@@ -1127,16 +1329,24 @@ public class menuPrincipal extends javax.swing.JFrame {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(menuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menuPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(menuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menuPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(menuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menuPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(menuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menuPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1169,6 +1379,7 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1177,10 +1388,10 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lblCPF;
     private javax.swing.JLabel lblDataFinal;
     private javax.swing.JLabel lblDataInicio;
+    private javax.swing.JTextField lblNome;
     private javax.swing.JLabel lblNomeCli;
     private javax.swing.JLabel lblNumTotal;
     private javax.swing.JLabel lblProd;
@@ -1203,6 +1414,7 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txtBuscarProd;
     private javax.swing.JTextField txtProdID;
     private javax.swing.JTextField txtProdutoValorTotal;
+    private javax.swing.JTextField txtValorUnitario;
     // End of variables declaration//GEN-END:variables
 
 }

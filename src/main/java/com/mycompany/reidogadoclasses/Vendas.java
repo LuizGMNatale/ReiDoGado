@@ -4,6 +4,7 @@
  */
 package com.mycompany.reidogadoclasses;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -18,7 +19,7 @@ public class Vendas {
     int idCliente;
     Date dataVenda;
     
-    private ArrayList<itemVenda> listaItens = null;
+    private ArrayList<ItemVenda> listaItens = null;
 
     public Vendas() {
     }
@@ -72,12 +73,24 @@ public class Vendas {
     public void setDataVenda(Date dataVenda) {
         this.dataVenda = dataVenda;
     }
+    
+    public void setDataVenda(String dataString) {
+        // Aqui você precisará converter a string para um objeto Date
+        // Você pode usar SimpleDateFormat novamente para isso
+        try {
+            SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+            this.dataVenda = formatoData.parse(dataString);
+        } catch (java.text.ParseException e) {
+            // Lide com a exceção de parsing, se necessário
+            e.printStackTrace();
+        }
+    }
       
-     public ArrayList<itemVenda> getListaItens() {
+     public ArrayList<ItemVenda> getListaItens() {
         return listaItens;
     }
 
-    public void setListaItens(ArrayList<itemVenda> listaItens) {
+    public void setListaItens(ArrayList<ItemVenda> listaItens) {
         this.listaItens = listaItens;
     }
 }
