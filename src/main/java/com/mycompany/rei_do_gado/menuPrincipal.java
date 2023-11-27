@@ -3,6 +3,7 @@ package com.mycompany.rei_do_gado;
 import com.mycompany.rei_do_gadoBD.ClienteDao;
 import com.mycompany.rei_do_gadoBD.ItensVendaDAO;
 import com.mycompany.rei_do_gadoBD.ProdutoDao;
+import com.mycompany.rei_do_gadoBD.VendasDAO;
 import com.mycompany.reidogadoclasses.Cliente;
 import com.mycompany.reidogadoclasses.Produto;
 import com.mycompany.reidogadoclasses.Vendas;
@@ -437,11 +438,11 @@ public class menuPrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "NOME", "QUANTIDADE", "VALOR VENDA", "FATURAÇÃO"
+                "ID PRODUTO", "NOME", "QUANTIDADE", "VALOR VENDA", "FATURAÇÃO"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
@@ -992,11 +993,18 @@ public class menuPrincipal extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
+    private void limpaTelaVenda() {
+        // Limpe os componentes da tela relacionados à venda
+        txtProdID.setText("Clique aqui para pesquisar o produto...");
+        ftxCPF.setText("");
+        lblSubNumero.setText("0.0"); // Supondo que lblSubNumero seja um JLabel para exibir o valor total
+
+        // Limpe a tabela de itens da venda
+        DefaultTableModel modeloTabela = (DefaultTableModel) tabVenda.getModel();
+        modeloTabela.setRowCount(0);
+    }
 
     private void btnVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendaActionPerformed
-        /*
-        venda = new Vendas();
-        double valorTotal = 0;
 
         if (tabVenda.getModel().getRowCount() < 1) {
             JOptionPane.showMessageDialog(rootPane,
@@ -1007,121 +1015,55 @@ public class menuPrincipal extends javax.swing.JFrame {
             return;
         }
 
-        //se não houver cliente na venda
-        if (lblNome == null) {
-
-            //avisa que não existe cliente para registrar junto a venda
-            int respostaConfirmacao = JOptionPane.showConfirmDialog(
-                    rootPane,
-                    "Não existe cliente na venda.\n\n"
-                    + "Deseja continuar?",
-                    "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
-
-            //se resposa for não para continuar o registro da venda
-            if (respostaConfirmacao == JOptionPane.NO_OPTION) {
-                //sai do método 
-                return;
-            }
+        // Verifica se o CPF foi preenchido
+        if (lblNome.getText().isEmpty() || ftxCPF.getText().isEmpty() || lblNome.getText().equals("Cliente não encontrado.")) {
+            JOptionPane.showMessageDialog(rootPane,
+                    "É obrigatório preencher o CPF do cliente!",
+                    "Atenção",
+                    JOptionPane.ERROR_MESSAGE);
+            // sai do método
+            return;
         }
 
-        //coloca dados da venda na instancia
-        java.util.Date data = new Date();
-        venda.setVlrTotal(Float.parseFloat(lblSubNumero.getText()));
-        venda.setDataVenda(data);
+        // Cria uma instância de VendasDAO
+        VendasDAO vendasDAO = new VendasDAO();
 
-        //coloca cada item da venda na lista de itens da venda da instancia de venda
-        for (int i = 0;i + 1 <= tabVenda.getModel()
-                        .getRowCount(); i++) {
-            //obtem o id dessa linha
+        // Obtém o CPF do cliente
+        String cpfCliente = ftxCPF.getText();
+
+        // Cria uma lista para armazenar os itens da venda
+        ArrayList<ItemVenda> itensVenda = new ArrayList<>();
+
+        // Preenche a lista de itensVenda com os dados da tabela
+        for (int i = 0; i < tabVenda.getModel().getRowCount(); i++) {
             ItemVenda itemVenda = new ItemVenda();
-            itemVenda.setIdVenda(venda.getIdVenda());
-            itemVenda.setIdItemVenda((Integer) tabVenda.getValueAt(i, 0));
-            itemVenda.setIdProduto((String) tabVenda.getValueAt(i, 1));
+            // Preencha os campos do itemVenda com os dados da tabela (adapte conforme sua estrutura de tabela)
+            itemVenda.setIdProduto((Integer) tabVenda.getValueAt(i, 0));
+            itemVenda.setNomeProd((String) tabVenda.getValueAt(i, 1));
             itemVenda.setQtd((Integer) tabVenda.getValueAt(i, 2));
             itemVenda.setVlrUnitario((Double) tabVenda.getValueAt(i, 3));
-            itemVenda.setValor((Float) tabelaVenda.getValueAt(i, 4));
-            itemVenda.setValorTotal(itemVenda.getQuantidade() * itemVenda.getValor());
-
-            venda.adicionarItem(itemVenda);
+            itensVenda.add(itemVenda);
         }
 
-        //coloca dados do cliente da venda na instancia de venda
-        venda.getCliente()
-                .setNome(txtClienteNomeInfo.getText());
-        venda.getCliente()
-                .setCpf(txtClienteCpfInfo.getText());
-        venda.getCliente()
-                .setCidade(txtClienteCidadeInfo.getText());
-        venda.getCliente()
-                .setLogradouro(txtClienteLogradouroInfo.getText());
-        venda.getCliente()
-                .setNumero(txtClienteNumeroInfo.getText());
+        boolean vendaRealizadaComSucesso = vendasDAO.realizarVenda(itensVenda, cpfCliente);
 
-        //se o valor pago for maior ou igual que o subtotal da compra
-        if (venda.getPagamentoCartao()
-                + venda.getPagamentoDinheiro() >= venda.getSubtotal()) {
-
-            //envia venda para salvar para o controller
-            respostaController = VendaController.salvar(venda);
-
-            //se a resposta for positiva salva os itens da venda
-            if (respostaController == null) {
-                //salva todos os itens da venda - (faz loop na lista de itens)
-                for (int i = 0; i < venda.getItensVenda().size(); i++) {
-
-                    //envia item da venda para para o controller salvar
-                    respostaController2 = ItensVendaController.salvar(venda.getItensVenda().get(i));
-
-                    //atualiza quantidade de produto em estoque.
-                    //para cada item da venda, pega o produto em estoque
-                    //decrementa a quantidade vendida e envia ele com a quantidade 
-                    //atualizada para o controller atualizar no estoque
-                    Produto produtoAtualizado = ProdutoController.obter(venda.getItensVenda().get(i).getId());
-                    produtoAtualizado.setQuantidade(produtoAtualizado.getQuantidade() - venda.getItensVenda().get(i).getQuantidade());
-                    respostaController3 = ProdutoController.atualizar(produtoAtualizado);
-                }
-
-                //dando tudo certo envia mensagem para usuário o resumo da compra
-                troco = (venda.getPagamentoCartao() + venda.getPagamentoDinheiro()) - venda.getSubtotal();
-                JOptionPane.showMessageDialog(rootPane,
-                        "Venda número " + vendaIndex + " registrada!\n\n"
-                        + "Subtotal da compra R$" + venda.getSubtotal() + "\n"
-                        + "Total pago em Dinheiro R$" + venda.getPagamentoDinheiro() + "\n"
-                        + "Total pago em Cartão R$" + venda.getPagamentoCartao() + "\n"
-                        + "Troco R$" + troco + "\n\n"
-                        + "Agora você pode consultar sua venda em:\n"
-                        + "Menu > Relatório",
-                        "Informe de registro",
-                        JOptionPane.INFORMATION_MESSAGE);
-
-                //Limpa o formulário da tela de vendas
-                limpaTelaVenda();
-
-                //Atualiza número da venda na tela de vendas
-                atualizaIndiceVenda();
-            } else//se a resposta do controller for negativa
-            {
-                //Exibe mensagens de erro para o usuário
-                JOptionPane.showMessageDialog(rootPane,
-                        respostaController
-                        + "\n Procure o administrador do sistema!",
-                        "Erro",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-            //se o valor pago for menor que o valor da compra
-        } else {
-            valorFaltante = venda.getSubtotal() - (venda.getPagamentoCartao() + venda.getPagamentoDinheiro());
-            //Exibe mensagens de erro para o usuário
+        // Verifica se a venda foi realizada com sucesso
+        if (vendaRealizadaComSucesso) {
             JOptionPane.showMessageDialog(rootPane,
-                    "Subtotal da compra R$" + venda.getSubtotal() + "\n"
-                    + "Total em Dinheiro R$" + venda.getPagamentoDinheiro() + "\n"
-                    + "Total em Cartão R$" + venda.getPagamentoCartao() + "\n\n"
-                    + "Faltam R$" + valorFaltante + "\n\n"
-                    + "Complete o e tente novamente.",
-                    "Venda não registrada",
+                    "Venda realizada com sucesso!",
+                    "Sucesso",
+                    JOptionPane.INFORMATION_MESSAGE);
+            // Limpa a tela após efetuar a venda
+            limpaTelaVenda();
+        } else {
+            JOptionPane.showMessageDialog(rootPane,
+                    "Erro ao realizar a venda. Por favor, tente novamente.",
+                    "Erro",
                     JOptionPane.ERROR_MESSAGE);
-        }*/
+        }
+        // Limpa a tela após efetuar a venda
+        limpaTelaVenda();
+
 
     }//GEN-LAST:event_btnVendaActionPerformed
 
@@ -1135,7 +1077,6 @@ public class menuPrincipal extends javax.swing.JFrame {
                 int quantidadeProdutoNovo = (int) spnQuant.getValue();
 
                 if (quantidadeProdutoNovo > 0) {
-
                     boolean produtoJaAdicionado = false;
                     for (int i = 0; i < modelo.getRowCount(); i++) {
                         String nomeProdutoTabela = modelo.getValueAt(i, 1).toString();
@@ -1147,14 +1088,15 @@ public class menuPrincipal extends javax.swing.JFrame {
 
                     if (!produtoJaAdicionado) {
                         // Adiciona o produto à tabela
-                        modelo.addRow(new String[]{
-                            String.valueOf(lista.get(0).getId()),
-                            String.valueOf(lista.get(0).getNomeProd()),
-                            String.valueOf(quantidadeProdutoNovo), // Adiciona a quantidade do Spinner
-                            String.valueOf(txtProdutoValorTotal.getText()),
-                            String.valueOf(lista.get(0).getFaturacao())
+                        modelo.addRow(new Object[]{
+                            lista.get(0).getId(), // Convertido para int
+                            nomeProdutoNovo,
+                            quantidadeProdutoNovo,
+                            Double.valueOf(txtProdutoValorTotal.getText()), // Converte para Double se necessário
+                            lista.get(0).getFaturacao()
                         });
-
+                        int quantidadeRetirar = quantidadeProdutoNovo;
+                        VendasDAO.atualizarEstoque(lista.get(0).getId(), quantidadeRetirar);
                         // Chama o método para atualizar o subtotal
                         atualizaSubtotal();
                     } else {
@@ -1167,22 +1109,31 @@ public class menuPrincipal extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(rootPane, "Selecione um produto.");
         }
+
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         try {
             int row = tabVenda.getSelectedRow();
 
-            // Use diretamente o tableModel
             if (row != -1) {
+                // Obtenha os dados da linha selecionada
+                int idProduto = (int) tabVenda.getValueAt(row, 0); // Supondo que o ID do produto está na coluna 0
+                int quantidadeRemovida = (int) tabVenda.getValueAt(row, 2); // Supondo que a quantidade está na coluna 2
+
+                // Use diretamente o tableModel para remover a linha
                 tableModel.removeRow(row);
                 atualizaSubtotal();
+
+                // Adicione a quantidade de volta ao estoque
+                VendasDAO.adicionarEstoque(idProduto, quantidadeRemovida);
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Selecione uma linha para remover.");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnBuscarCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCliActionPerformed
