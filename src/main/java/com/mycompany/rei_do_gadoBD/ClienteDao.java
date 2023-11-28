@@ -22,7 +22,7 @@ public class ClienteDao {
 
     static String url = "jdbc:mysql://localhost:3306/baseReiDoGado";
     static String login = "root";
-    static String senha = "P@$$w0rd";
+    static String senha = "root";
 
     public static boolean salvar(Cliente novoCliente) {
         boolean retorno = false;

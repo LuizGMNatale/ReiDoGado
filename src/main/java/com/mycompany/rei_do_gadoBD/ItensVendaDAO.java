@@ -24,7 +24,7 @@ public class ItensVendaDAO {
      //jdbc:mysql://localhost:3307/basenotafiscal
     static String URL = "jdbc:mysql://localhost:3306/baseReiDoGado";
     static String Login = "root"; // Alterar para o login do bd salvo no seu pc
-    static String Senha = "P@$$w0rd"; // Alterar para a senha do bd salvo no seu pc
+    static String Senha = "root"; // Alterar para a senha do bd salvo no seu pc
     
     public static ArrayList<Produto> buscarProduto(JTextField txtProdID){
         

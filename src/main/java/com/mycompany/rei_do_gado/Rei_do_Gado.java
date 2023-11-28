@@ -12,9 +12,6 @@ package com.mycompany.rei_do_gado;
 public class Rei_do_Gado {
 
     public static void main(String[] args) {
-        menuPrincipal janelaPrincipal = new menuPrincipal();
-        janelaPrincipal.setVisible(true);
-
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
@@ -31,5 +28,9 @@ public class Rei_do_Gado {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(menuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        
+        menuPrincipal janelaPrincipal = new menuPrincipal();
+        janelaPrincipal.setVisible(true);
     }
+    
 }

@@ -104,7 +104,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnVendas.setBackground(new java.awt.Color(51, 255, 255));
-        btnVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dinheiro.png"))); // NOI18N
+        btnVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cartoes-com-cifrao.png"))); // NOI18N
         btnVendas.setText("Vendas");
         btnVendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,7 +113,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         });
 
         btnRelatorios.setBackground(new java.awt.Color(255, 153, 153));
-        btnRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lista.png"))); // NOI18N
+        btnRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gerar relatório.png"))); // NOI18N
         btnRelatorios.setText("Relatórios");
         btnRelatorios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,6 +131,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         });
 
         btnProdutos.setBackground(new java.awt.Color(0, 255, 153));
+        btnProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/produtos.png"))); // NOI18N
         btnProdutos.setText("Produtos");
         btnProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,7 +177,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         tabClientes.setMaximumSize(new java.awt.Dimension(1100, 700));
         tabClientes.setPreferredSize(new java.awt.Dimension(1100, 700));
 
-        btnCadCli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do-utilizador add.png"))); // NOI18N
+        btnCadCli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adicionar-usuario.png"))); // NOI18N
         btnCadCli.setText("Cadastrar Cliente");
         btnCadCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,7 +185,7 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnEditCli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lapis.png"))); // NOI18N
+        btnEditCli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/editar.png"))); // NOI18N
         btnEditCli.setText("Editar Cliente");
         btnEditCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,7 +193,7 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnDelCli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lixo.png"))); // NOI18N
+        btnDelCli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/excluir.png"))); // NOI18N
         btnDelCli.setText("Exluir Cliente");
         btnDelCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -337,7 +338,7 @@ public class menuPrincipal extends javax.swing.JFrame {
             tabProd.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        btnCadProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carrinho-de-compras.png"))); // NOI18N
+        btnCadProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adicionar-produto.png"))); // NOI18N
         btnCadProd.setText("Cadastrar Produto");
         btnCadProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -345,7 +346,7 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnEditProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lapis.png"))); // NOI18N
+        btnEditProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/editar.png"))); // NOI18N
         btnEditProd.setText("Editar Produto");
         btnEditProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -353,7 +354,7 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnDelProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lixo.png"))); // NOI18N
+        btnDelProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/excluir.png"))); // NOI18N
         btnDelProd.setText("Exluir Produto");
         btnDelProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -396,14 +397,14 @@ public class menuPrincipal extends javax.swing.JFrame {
                         .addComponent(btnBuscarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCadProd, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEditProd, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEditProd, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDelProd, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 13, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pnlProdutosLayout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(24, Short.MAX_VALUE))))
         );
         pnlProdutosLayout.setVerticalGroup(
             pnlProdutosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -486,6 +487,7 @@ public class menuPrincipal extends javax.swing.JFrame {
                     .addComponent(lblSubNumero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
+        btnAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adicionar.png"))); // NOI18N
         btnAdicionar.setText("Adicionar Item");
         btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -518,6 +520,7 @@ public class menuPrincipal extends javax.swing.JFrame {
 
         lblCPF.setText("CPF Cliente");
 
+        btnVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/registrarvenda.png"))); // NOI18N
         btnVenda.setText("Registrar Venda");
         btnVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -537,6 +540,7 @@ public class menuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cancelar.png"))); // NOI18N
         btnRemove.setText("Remover Item");
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1158,7 +1162,7 @@ public class menuPrincipal extends javax.swing.JFrame {
                             lista.get(0).getId(), // Convertido para int
                             nomeProdutoNovo,
                             quantidadeProdutoNovo,
-                            Double.valueOf(txtProdutoValorTotal.getText()), // Converte para Double se necessário
+                            Double.valueOf(txtProdutoValorTotal.getText().replace(",", ".")), // Converte para Double se necessário
                             lista.get(0).getFaturacao()
                         });
                         int quantidadeRetirar = quantidadeProdutoNovo;
