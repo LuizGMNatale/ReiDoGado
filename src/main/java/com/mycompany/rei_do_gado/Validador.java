@@ -5,6 +5,7 @@
 package com.mycompany.rei_do_gado;
 
 import java.awt.Color;
+import java.text.ParseException;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -45,6 +46,63 @@ public class Validador {
     
     }
     
+    
+    public void validarCampoFormatado(JTextField txt) {
+        try {
+            // Verifica se o campo está vazio
+            if (txt.getText().trim().equals("")) {
+                throw new IllegalArgumentException("Digite um valor para o campo " + txt.getName());
+            }
+
+            // Remove caracteres não numéricos para facilitar a conversão
+            String valorSemFormato = txt.getText().replaceAll("[^0-9]", "");
+
+            // Realiza a validação com base no tipo de campo
+            if (txt.getName().equals("CPF")) {
+                validarCPF(valorSemFormato);
+            } else if (txt.getName().equals("CEP")) {
+                validarCEP(valorSemFormato);
+            } else if (txt.getName().equals("Telefone")) {
+                validarTelefone(valorSemFormato);
+            }
+
+            // Se chegou até aqui sem lançar exceção, o valor é válido
+            txt.setBackground(Color.white);
+        } catch (IllegalArgumentException e) {
+            this.mensagensErro.add(e.getMessage());
+            txt.setBackground(Color.red);
+        }
+    }
+
+    private void validarCPF(String cpf) throws IllegalArgumentException {
+        // Lógica de validação do CPF
+        // ...
+
+        // Exemplo simples para demonstração
+        if (cpf.length() != 11) {
+            throw new IllegalArgumentException("CPF inválido");
+        }
+    }
+
+    private void validarCEP(String cep) throws IllegalArgumentException {
+        // Lógica de validação do CEP
+        // ...
+
+        // Exemplo simples para demonstração
+        if (cep.length() != 8) {
+            throw new IllegalArgumentException("CEP inválido");
+        }
+    }
+
+    private void validarTelefone(String telefone) throws IllegalArgumentException {
+        // Lógica de validação do telefone
+        // ...
+
+        // Exemplo simples para demonstração
+        if (telefone.length() < 10) {
+            throw new IllegalArgumentException("Telefone inválido");
+        }
+    }
     /**
      * Valida somente campos float
      * @param txt Recebe um objeto do tipo JTextField

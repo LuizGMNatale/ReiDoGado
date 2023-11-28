@@ -307,21 +307,21 @@ public class cadastroCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Digite o endereço do cliente");
             objValidador.ValidarTexto(txtEndereco);
         }
-        if (txtCep.getText() == null) {
+        if (txtCep.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Informe o CEP do cliente");
-            objValidador.ValidarNumero(txtCep);
+            objValidador.validarCampoFormatado(txtCep);
         }
-        if (txtCpf.getText() == null) {
+        if (txtCpf.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Informe o CPF do cliente");
-            objValidador.ValidarCPF(txtCpf);
+            objValidador.validarCampoFormatado(txtCpf);
         }
         if (txtEmail.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Informe o Email do cliente");
             objValidador.ValidarTexto(txtEmail);
         }
-        if (txtTelefone.getText() == null) {
+        if (txtTelefone.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Informe o número para contato");
-            objValidador.ValidarNumero(txtTelefone);
+            objValidador.validarCampoFormatado(txtTelefone);
         }
         if (cboSexo.getSelectedItem() == null || cboSexo.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Selecione um genero");
@@ -380,9 +380,6 @@ public class cadastroCliente extends javax.swing.JFrame {
                  JOptionPane.showMessageDialog(rootPane, "Falha");
         }}
               this.dispose();
-          }else{
-              String msgs = objValidador.getMensagensErro();
-              JOptionPane.showMessageDialog(rootPane, msgs);
           }
 
         

@@ -258,4 +258,34 @@ public class ClienteDao {
         return lista;
     }
 
+    
+    public static boolean temVendasAssociadas(int idCliente) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conexao = DriverManager.getConnection(url, login, senha);
+
+            // Consulta para verificar se existem vendas associadas ao cliente
+            String sql = "SELECT COUNT(*) FROM Vendas WHERE id_Cli = ?";
+            
+            try (PreparedStatement comandoSQL = conexao.prepareStatement(sql)) {
+                comandoSQL.setInt(1, idCliente);
+
+                try (ResultSet resultado = comandoSQL.executeQuery()) {
+                    if (resultado.next()) {
+                        int quantidadeVendas = resultado.getInt(1);
+
+                        // Se houver pelo menos uma venda, retorna true
+                        return quantidadeVendas > 0;
+                    }
+                }
+            }
+
+            conexao.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Em caso de erro, retorna false por padrão
+        return false;
+    }
 }

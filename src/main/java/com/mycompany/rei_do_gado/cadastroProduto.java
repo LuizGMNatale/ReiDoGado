@@ -281,9 +281,6 @@ public class cadastroProduto extends javax.swing.JFrame {
         }}
               this.dispose();   
           
-          }else{
-              String msgs = objvalidador.getMensagensErro();
-              JOptionPane.showMessageDialog(rootPane, msgs);
           }
        
     }//GEN-LAST:event_btnCadastrarActionPerformed

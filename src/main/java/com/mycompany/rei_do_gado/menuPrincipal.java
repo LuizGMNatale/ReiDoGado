@@ -14,6 +14,7 @@ import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -84,10 +85,8 @@ public class menuPrincipal extends javax.swing.JFrame {
         pnlRelatorios = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tabRelatorio2 = new javax.swing.JTable();
-        lblTotal = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        lblNumTotal = new javax.swing.JLabel();
         lblDataInicio = new javax.swing.JLabel();
         lblDataFinal = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -663,8 +662,6 @@ public class menuPrincipal extends javax.swing.JFrame {
         tabRelatorio2.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(tabRelatorio2);
 
-        lblTotal.setText("Total:");
-
         jPanel3.setBackground(new java.awt.Color(0, 102, 204));
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -734,31 +731,25 @@ public class menuPrincipal extends javax.swing.JFrame {
             pnlRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pnlRelatoriosLayout.createSequentialGroup()
-                .addGroup(pnlRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlRelatoriosLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblTotal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblNumTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlRelatoriosLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(pnlRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
-                            .addComponent(jScrollPane4))))
-                .addContainerGap(203, Short.MAX_VALUE))
-            .addGroup(pnlRelatoriosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblDataInicio)
-                    .addComponent(dacDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(pnlRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblDataFinal)
                     .addGroup(pnlRelatoriosLayout.createSequentialGroup()
-                        .addComponent(dacDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(pnlRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+                            .addComponent(jScrollPane5))
+                        .addContainerGap(36, Short.MAX_VALUE))
+                    .addGroup(pnlRelatoriosLayout.createSequentialGroup()
+                        .addGroup(pnlRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDataInicio)
+                            .addComponent(dacDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12)
+                        .addGroup(pnlRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDataFinal)
+                            .addGroup(pnlRelatoriosLayout.createSequentialGroup()
+                                .addComponent(dacDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         pnlRelatoriosLayout.setVerticalGroup(
             pnlRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -775,14 +766,10 @@ public class menuPrincipal extends javax.swing.JFrame {
                     .addComponent(dacDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
                 .addGap(12, 12, 12)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addGroup(pnlRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblNumTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         tabClientes.addTab("tabRelatorios", pnlRelatorios);
@@ -841,21 +828,22 @@ public class menuPrincipal extends javax.swing.JFrame {
                         produtoTela.setQuantidade((Integer) spnQuant.getValue());
 
                         double valorTotal = produtoTela.getValorVenda() * (Integer) spnQuant.getValue();
-                        txtProdutoValorTotal.setText(Double.toString(valorTotal));
-                    } else {
 
+                        // Formata o valor total para exibir até duas casas decimais
+                        DecimalFormat df = new DecimalFormat("#,##0.00");
+                        String valorTotalFormatado = df.format(valorTotal);
+
+                        txtProdutoValorTotal.setText(valorTotalFormatado);
+                    } else {
                         System.out.println("O valor do Spinner é nulo.");
                     }
                 } catch (NumberFormatException ex) {
-
                     System.out.println("Formato inválido para o valor unitário.");
                 }
             } else {
-
                 System.out.println("O campo do valor unitário está vazio.");
             }
         } catch (Exception e) {
-
             e.printStackTrace();
         }
     }
@@ -1008,7 +996,7 @@ public class menuPrincipal extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnEditCliActionPerformed
-    
+
     private void popularTabelaVendas(ArrayList<Vendas> vendas) {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID Venda");
@@ -1018,16 +1006,16 @@ public class menuPrincipal extends javax.swing.JFrame {
 
         for (Vendas venda : vendas) {
             model.addRow(new Object[]{
-                    venda.getIdVenda(),
-                    venda.getVlrTotal(),
-                    venda.getIdCliente(),
-                    venda.getDataVenda()
+                venda.getIdVenda(),
+                venda.getVlrTotal(),
+                venda.getIdCliente(),
+                venda.getDataVenda()
             });
         }
 
         tabRelatorio1.setModel(model);
     }
-    
+
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
         // Obtém as datas do JDateChooser
@@ -1067,9 +1055,8 @@ public class menuPrincipal extends javax.swing.JFrame {
             };
             modelo.addRow(linha);
         }
-    
 
-    // Outros métodos e atributos...
+        // Outros métodos e atributos...
 
     }//GEN-LAST:event_btnBuscarActionPerformed
     private void limpaTelaVenda() {
@@ -1259,13 +1246,21 @@ public class menuPrincipal extends javax.swing.JFrame {
         }
 
         int idExcluir = Integer.parseInt(valorCelula.toString());
+
+        // Verificar se existem vendas associadas ao cliente
+        if (ClienteDao.temVendasAssociadas(idExcluir)) {
+            JOptionPane.showMessageDialog(rootPane, "Não é possível excluir o cliente pois existem vendas associadas a ele.");
+            return;
+        }
+
+        // Se não houver vendas associadas, prosseguir com a exclusão
         boolean retorno = ClienteDao.excluir(idExcluir);
         if (retorno) {
             JOptionPane.showMessageDialog(rootPane, "Sucesso!");
         } else {
             JOptionPane.showMessageDialog(rootPane, "Falha!");
         }
-        
+
 
     }//GEN-LAST:event_btnDelCliActionPerformed
 
@@ -1299,17 +1294,24 @@ public class menuPrincipal extends javax.swing.JFrame {
         }
 
         if (linhaSelecionada >= 0 && linhaSelecionada < modelo.getRowCount()) {
-            // Se a linha selecionada for válida, prossiga com o código atual
-            int idExcluir = Integer.parseInt(modelo.getValueAt(linhaSelecionada, 0).toString());
-            boolean retorno = ProdutoDao.excluir(idExcluir);
-            if (retorno) {
-                JOptionPane.showMessageDialog(rootPane, "Sucesso!");
+            int idProduto = Integer.parseInt(modelo.getValueAt(linhaSelecionada, 0).toString());
+
+            // Verifica se o produto tem vendas associadas
+            if (ProdutoDao.temVendasAssociadas(idProduto)) {
+                JOptionPane.showMessageDialog(rootPane, "Não é possível excluir o produto pois existem vendas associadas a ele.");
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Falha!");
+                // Se a linha selecionada for válida e não houver vendas associadas, prossiga com a exclusão do produto
+                boolean retorno = ProdutoDao.excluir(idProduto);
+                if (retorno) {
+                    JOptionPane.showMessageDialog(rootPane, "Sucesso!");
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Falha!");
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Linha selecionada inválida.");
         }
+
 
             }//GEN-LAST:event_btnDelProdActionPerformed
 
@@ -1411,34 +1413,34 @@ public class menuPrincipal extends javax.swing.JFrame {
         consultarCliente();
     }//GEN-LAST:event_ftxCPFKeyReleased
     private void popularTabelaItensVenda(ArrayList<ItemVenda> itensVenda) {
-    DefaultTableModel modelo = (DefaultTableModel) tabRelatorio2.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tabRelatorio2.getModel();
 
-    // Limpa a tabela antes de adicionar novas linhas
-    modelo.setRowCount(0);
-    for (ItemVenda item : itensVenda) {
-        modelo.addRow(new Object[]{
+        // Limpa a tabela antes de adicionar novas linhas
+        modelo.setRowCount(0);
+        for (ItemVenda item : itensVenda) {
+            modelo.addRow(new Object[]{
                 item.getIdProduto(),
                 item.getNomeProduto(),
                 item.getQtd(),
                 item.getVlrUnitario()
-        });
-    }
+            });
+        }
 
-    tabRelatorio2.setModel(modelo);
-}
+        tabRelatorio2.setModel(modelo);
+    }
 
     private void tabRelatorio1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabRelatorio1MouseClicked
         int selectedRow = tabRelatorio1.getSelectedRow();
 
-                    // Obter o ID da venda selecionada (supondo que o ID esteja na primeira coluna)
-                    int idVendaSelecionada = (int) tabRelatorio1.getValueAt(selectedRow, 0);
+        // Obter o ID da venda selecionada (supondo que o ID esteja na primeira coluna)
+        int idVendaSelecionada = (int) tabRelatorio1.getValueAt(selectedRow, 0);
 
-                    // Obter itens de venda para a venda selecionada
-                    ArrayList<ItemVenda> itensVenda = VendasDAO.buscarItensPorVenda(idVendaSelecionada);
+        // Obter itens de venda para a venda selecionada
+        ArrayList<ItemVenda> itensVenda = VendasDAO.buscarItensPorVenda(idVendaSelecionada);
 
-                    // Popular a tabela de itens de venda com os itens obtidos
-                    popularTabelaItensVenda(itensVenda);
-                
+        // Popular a tabela de itens de venda com os itens obtidos
+        popularTabelaItensVenda(itensVenda);
+
     }//GEN-LAST:event_tabRelatorio1MouseClicked
 
     public static void main(String args[]) {
@@ -1516,12 +1518,10 @@ public class menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblDataInicio;
     private javax.swing.JTextField lblNome;
     private javax.swing.JLabel lblNomeCli;
-    private javax.swing.JLabel lblNumTotal;
     private javax.swing.JLabel lblProd;
     private javax.swing.JLabel lblQuant;
     private javax.swing.JLabel lblSubNumero;
     private javax.swing.JLabel lblSubtotal;
-    private javax.swing.JLabel lblTotal;
     private javax.swing.JPanel pnlClientes;
     private javax.swing.JPanel pnlProdutos;
     private javax.swing.JPanel pnlRelatorios;
