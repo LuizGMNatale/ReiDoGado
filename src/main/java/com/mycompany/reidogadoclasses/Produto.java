@@ -17,6 +17,11 @@ public class Produto {
     private double valorVenda;
     private String faturacao;
 
+    public Produto(String nomeProd, double valorVenda) {
+        this.nomeProd = nomeProd;
+        this.valorVenda = valorVenda;
+    }
+    
     public Produto(String nomeProd, int quantidade, double valorEntrada, double valorVenda, String faturacao) {
         this.nomeProd = nomeProd;
         this.quantidade = quantidade;

@@ -15,7 +15,18 @@ public class ItemVenda extends Produto{
     int idProduto;
     double vlrUnitario;
     int qtd;
+    String nomeProduto;
 
+    public ItemVenda(int idProduto, double vlrUnitario, int qtd, String nomeProduto) {
+        this.idProduto = idProduto;
+        this.vlrUnitario = vlrUnitario;
+        this.qtd = qtd;
+        this.nomeProduto = nomeProduto;
+    }
+    
+    
+        
+    
     public ItemVenda() {
     }
 
@@ -29,6 +40,16 @@ public class ItemVenda extends Produto{
         this.qtd = qtd;
     }
 
+    public String getNomeProduto() {
+        return nomeProduto;
+    }
+
+    public void setNomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
+    }
+    
+    
+    
     public int getIdItemVenda() {
         return idItemVenda;
     }

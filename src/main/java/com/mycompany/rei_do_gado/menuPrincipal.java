@@ -14,6 +14,7 @@ import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -104,7 +105,6 @@ public class menuPrincipal extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnVendas.setBackground(new java.awt.Color(51, 255, 255));
-        btnVendas.setForeground(new java.awt.Color(0, 0, 0));
         btnVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dinheiro.png"))); // NOI18N
         btnVendas.setText("Vendas");
         btnVendas.addActionListener(new java.awt.event.ActionListener() {
@@ -114,7 +114,6 @@ public class menuPrincipal extends javax.swing.JFrame {
         });
 
         btnRelatorios.setBackground(new java.awt.Color(255, 153, 153));
-        btnRelatorios.setForeground(new java.awt.Color(0, 0, 0));
         btnRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lista.png"))); // NOI18N
         btnRelatorios.setText("Relatórios");
         btnRelatorios.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +123,6 @@ public class menuPrincipal extends javax.swing.JFrame {
         });
 
         btnClientes.setBackground(new java.awt.Color(51, 255, 204));
-        btnClientes.setForeground(new java.awt.Color(0, 0, 0));
         btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuarios.png"))); // NOI18N
         btnClientes.setText("Clientes");
         btnClientes.addActionListener(new java.awt.event.ActionListener() {
@@ -134,7 +132,6 @@ public class menuPrincipal extends javax.swing.JFrame {
         });
 
         btnProdutos.setBackground(new java.awt.Color(0, 255, 153));
-        btnProdutos.setForeground(new java.awt.Color(0, 0, 0));
         btnProdutos.setText("Produtos");
         btnProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -651,9 +648,17 @@ public class menuPrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Cod Produto", "Nome Produto", "Valor KG", "Valor Unitário", "Valor Total"
+                "COD PRODUTO", "NOME PRODUTO", "QUANTIDADE", "VALOR TOTAL"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tabRelatorio2.getTableHeader().setResizingAllowed(false);
         tabRelatorio2.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(tabRelatorio2);
@@ -685,17 +690,31 @@ public class menuPrincipal extends javax.swing.JFrame {
 
         lblDataFinal.setText("Data Final");
 
+        tabRelatorio1.setAutoCreateRowSorter(true);
         tabRelatorio1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Data da Venda", "CPF", "Nome Cliente", "Total de Itens", "Valor Total"
+                "ID", "VALOR TOTAL", "ID CLIENTE", "DATA VENDA"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tabRelatorio1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tabRelatorio1.getTableHeader().setResizingAllowed(false);
         tabRelatorio1.getTableHeader().setReorderingAllowed(false);
+        tabRelatorio1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabRelatorio1MouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(tabRelatorio1);
 
         dacDataInicio.setDateFormatString("dd/MM/yyyy");
@@ -989,9 +1008,69 @@ public class menuPrincipal extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnEditCliActionPerformed
+    
+    private void popularTabelaVendas(ArrayList<Vendas> vendas) {
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID Venda");
+        model.addColumn("Valor Total");
+        model.addColumn("ID Cliente");
+        model.addColumn("Data Venda");
 
+        for (Vendas venda : vendas) {
+            model.addRow(new Object[]{
+                    venda.getIdVenda(),
+                    venda.getVlrTotal(),
+                    venda.getIdCliente(),
+                    venda.getDataVenda()
+            });
+        }
+
+        tabRelatorio1.setModel(model);
+    }
+    
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+
+        // Obtém as datas do JDateChooser
+        Date dataInicio = dacDataInicio.getDate();
+        Date dataFim = dacDataFinal.getDate();
+
+        // Verifica se as datas foram selecionadas
+        if (dataInicio == null || dataFim == null) {
+            JOptionPane.showMessageDialog(this, "Selecione as datas de início e fim.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Converte as datas para o formato de String desejado
+        SimpleDateFormat formatoData = new SimpleDateFormat("yyyy-MM-dd");
+        String dataInicioStr = formatoData.format(dataInicio);
+        String dataFimStr = formatoData.format(dataFim);
+
+        // Busca as vendas no banco de dados
+        ArrayList<Vendas> listaVendas = VendasDAO.buscarVendasPorPeriodo(dataInicio, dataFim);
+
+        // Preenche a tabela com os resultados
+        preencherTabela(listaVendas);
+    }
+
+    private void preencherTabela(ArrayList<Vendas> listaVendas) {
+        DefaultTableModel modelo = (DefaultTableModel) tabRelatorio1.getModel();
+
+        // Limpa a tabela antes de adicionar novas linhas
+        modelo.setRowCount(0);
+
+        for (Vendas venda : listaVendas) {
+            Object[] linha = {
+                venda.getIdVenda(),
+                venda.getVlrTotal(),
+                venda.getIdCliente(),
+                venda.getDataVenda()
+            };
+            modelo.addRow(linha);
+        }
+    
+
+    // Outros métodos e atributos...
+
     }//GEN-LAST:event_btnBuscarActionPerformed
     private void limpaTelaVenda() {
         // Limpe os componentes da tela relacionados à venda
@@ -1186,6 +1265,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(rootPane, "Falha!");
         }
+        
 
     }//GEN-LAST:event_btnDelCliActionPerformed
 
@@ -1330,6 +1410,36 @@ public class menuPrincipal extends javax.swing.JFrame {
     private void ftxCPFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftxCPFKeyReleased
         consultarCliente();
     }//GEN-LAST:event_ftxCPFKeyReleased
+    private void popularTabelaItensVenda(ArrayList<ItemVenda> itensVenda) {
+    DefaultTableModel modelo = (DefaultTableModel) tabRelatorio2.getModel();
+
+    // Limpa a tabela antes de adicionar novas linhas
+    modelo.setRowCount(0);
+    for (ItemVenda item : itensVenda) {
+        modelo.addRow(new Object[]{
+                item.getIdProduto(),
+                item.getNomeProduto(),
+                item.getQtd(),
+                item.getVlrUnitario()
+        });
+    }
+
+    tabRelatorio2.setModel(modelo);
+}
+
+    private void tabRelatorio1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabRelatorio1MouseClicked
+        int selectedRow = tabRelatorio1.getSelectedRow();
+
+                    // Obter o ID da venda selecionada (supondo que o ID esteja na primeira coluna)
+                    int idVendaSelecionada = (int) tabRelatorio1.getValueAt(selectedRow, 0);
+
+                    // Obter itens de venda para a venda selecionada
+                    ArrayList<ItemVenda> itensVenda = VendasDAO.buscarItensPorVenda(idVendaSelecionada);
+
+                    // Popular a tabela de itens de venda com os itens obtidos
+                    popularTabelaItensVenda(itensVenda);
+                
+    }//GEN-LAST:event_tabRelatorio1MouseClicked
 
     public static void main(String args[]) {
 

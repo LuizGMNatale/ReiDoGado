@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -40,6 +41,7 @@ public class VendasDAO {
             PreparedStatement comandoSQL = conexao.prepareStatement("INSERT INTO Vendas (vlrTotal, id_Cli, dataVenda) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             comandoSQL.setDouble(1, obj.getVlrTotal());
             comandoSQL.setInt(2, obj.getIdCliente());
+            
             comandoSQL.setDate(3, new java.sql.Date(obj.getDataVenda().getTime()));
 
             int linhasAfetadas = comandoSQL.executeUpdate();
@@ -51,11 +53,12 @@ public class VendasDAO {
                     int idVenda = rs.getInt(1);
 
                     for (ItemVenda itemVenda : obj.getItensVenda()) {
-                        PreparedStatement comandoSQLItem = conexao.prepareStatement("INSERT INTO itemVenda (idVenda, idProduto, vlrUnitario, qtd) VALUES (?, ?, ?, ?)");
+                        PreparedStatement comandoSQLItem = conexao.prepareStatement("INSERT INTO itemVenda (idVenda, idProduto, nomeProduto,vlrUnitario, qtd) VALUES (?, ?, ?, ?, ?)");
                         comandoSQLItem.setInt(1, idVenda);
                         comandoSQLItem.setInt(2, itemVenda.getIdProduto());
-                        comandoSQLItem.setDouble(3, itemVenda.getVlrUnitario());
-                        comandoSQLItem.setInt(4, itemVenda.getQtd());
+                        comandoSQLItem.setString(3, itemVenda.getNomeProduto());
+                        comandoSQLItem.setDouble(4, itemVenda.getVlrUnitario());
+                        comandoSQLItem.setInt(5, itemVenda.getQtd());
 
                         int linhasAfetadasItem = comandoSQLItem.executeUpdate();
 
@@ -310,4 +313,74 @@ public class VendasDAO {
         return valorTotal;
     }
 
+    public static ArrayList<Vendas> buscarVendasPorPeriodo(java.util.Date dataInicio, java.util.Date dataFim) {
+        ArrayList<Vendas> listaVendas = new ArrayList<>();
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conexao = DriverManager.getConnection(URL, Login, Senha);
+
+            String sql = "SELECT * FROM Vendas WHERE dataVenda BETWEEN ? AND ?";
+            try (PreparedStatement comandoSQL = conexao.prepareStatement(sql)) {
+                comandoSQL.setDate(1, new java.sql.Date(dataInicio.getTime()));
+                comandoSQL.setDate(2, new java.sql.Date(dataFim.getTime()));
+                
+                
+                try (ResultSet resultado = comandoSQL.executeQuery()) {
+                    while (resultado.next()) {
+                        int idVenda = resultado.getInt("idVenda");
+                        double vlrTotal = resultado.getDouble("vlrTotal");
+                        int idCliente = resultado.getInt("id_Cli");
+                        Date dataVenda = resultado.getDate("dataVenda");
+
+                        // Aqui você pode incluir a lógica para buscar os itens da venda, se necessário
+                        Vendas venda = new Vendas(idVenda, vlrTotal, idCliente, dataVenda);
+                        listaVendas.add(venda);
+                    }
+                }
+            }
+            conexao.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        return listaVendas;
+    }
+   public static ArrayList<ItemVenda> buscarItensPorVenda(int idVenda) {
+    ArrayList<ItemVenda> listaItens = new ArrayList<>();
+
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection conexao = DriverManager.getConnection(URL, Login, Senha);
+
+        // Modificado para selecionar da visão vw_itemVenda
+        String sql = "SELECT idProduto, nomeProduto, vlrUnitario, qtd " +
+                     "FROM vw_itemVenda " +
+                     "WHERE idVenda = ?";
+
+        try (PreparedStatement comandoSQL = conexao.prepareStatement(sql)) {
+            comandoSQL.setInt(1, idVenda);
+
+            try (ResultSet resultado = comandoSQL.executeQuery()) {
+                while (resultado.next()) {
+                    ItemVenda item = new ItemVenda();
+                    item.setIdProduto(resultado.getInt("idProduto"));
+                    item.setNomeProduto( resultado.getString("nomeProduto"));
+                    item.setVlrUnitario(resultado.getDouble("vlrUnitario"));
+                    item.setQtd(resultado.getInt("qtd"));
+
+                   
+                    listaItens.add(item);
+                }
+            }
+        }
+        conexao.close();
+    } catch (ClassNotFoundException | SQLException e) {
+        e.printStackTrace();
+    }
+
+    return listaItens;
 }
+
+    }
+    
