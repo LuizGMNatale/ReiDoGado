@@ -1220,7 +1220,7 @@ public class menuPrincipal extends javax.swing.JFrame {
 
                 // Verifica se a quantidade em estoque é suficiente
                 if (quantidadeProdutoNovo > 0 && quantidadeProdutoNovo <= lista.get(0).getQuantidade()) {
-                    boolean produtoJaAdicionado = false;
+                   boolean produtoJaAdicionado = false;
                     for (int i = 0; i < modelo.getRowCount(); i++) {
                         String nomeProdutoTabela = modelo.getValueAt(i, 1).toString();
                         if (nomeProdutoTabela.equalsIgnoreCase(nomeProdutoNovo)) {
