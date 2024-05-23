@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,6 +35,21 @@ public class ClienteDao {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             conexao = DriverManager.getConnection(url, login, senha);
+
+            // Verifica se já existe um cliente com o mesmo CPF
+            comandoSQL = conexao.prepareStatement("SELECT COUNT(*) FROM CLIENTE WHERE cpf = ?");
+            comandoSQL.setString(1, novoCliente.getCpf());
+            rs = comandoSQL.executeQuery();
+
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                if (count > 0) {
+                    // Já existe um cliente com o mesmo CPF, retorna false e não insere o cliente
+                    JOptionPane.showMessageDialog(null, "Já existe um cliente cadastrado com este CPF.");
+                    return false;
+                }
+            }
+
             comandoSQL = conexao.prepareStatement("INSERT INTO CLIENTE (nome, sexo, telefone, email, cpf, endereco, cep, estadoCivil) "
                     + "Values (?,?,?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
             comandoSQL.setString(1, novoCliente.getNome());
@@ -59,11 +75,23 @@ public class ClienteDao {
 
             }
 
-        } catch (ClassNotFoundException ex) {
-            retorno = false;
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             retorno = false;
         } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (comandoSQL != null) {
+                try {
+                    comandoSQL.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             if (conexao != null) {
                 try {
                     conexao.close();
@@ -74,8 +102,8 @@ public class ClienteDao {
         }
 
         return retorno;
-
-    }// fim do salvar
+    }
+// fim do salvar
 
     public static ArrayList<Cliente> listar() {
 
@@ -141,7 +169,23 @@ public class ClienteDao {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             conexao = DriverManager.getConnection(url, login, senha);
-            comandoSQL = conexao.prepareStatement("UPDATE CLIENTE SET nome =?, sexo =?, telefone =?, email=? , cpf=? , endereco=? , cep=? , estadoCivil=? WHERE id_Cli =? ");
+
+            // Verifica se já existe um cliente com o mesmo CPF
+            comandoSQL = conexao.prepareStatement("SELECT COUNT(*) FROM CLIENTE WHERE cpf = ? AND id_Cli <> ?");
+            comandoSQL.setString(1, novoCliente.getCpf());
+            comandoSQL.setInt(2, novoCliente.getId());
+            rs = comandoSQL.executeQuery();
+
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                if (count > 0) {
+                    // Já existe um cliente com o mesmo CPF, exibe a mensagem e retorna false
+                    JOptionPane.showMessageDialog(null, "Já existe um cliente cadastrado com este CPF.");
+                    return false;
+                }
+            }
+
+            comandoSQL = conexao.prepareStatement("UPDATE CLIENTE SET nome = ?, sexo = ?, telefone = ?, email = ?, cpf = ?, endereco = ?, cep = ?, estadoCivil = ? WHERE id_Cli = ?");
             comandoSQL.setString(1, novoCliente.getNome());
             comandoSQL.setString(2, novoCliente.getSexo());
             comandoSQL.setString(3, novoCliente.getTelefone());
@@ -157,11 +201,23 @@ public class ClienteDao {
                 retorno = true;
             }
 
-        } catch (ClassNotFoundException ex) {
-            retorno = false;
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             retorno = false;
         } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (comandoSQL != null) {
+                try {
+                    comandoSQL.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             if (conexao != null) {
                 try {
                     conexao.close();
@@ -172,7 +228,6 @@ public class ClienteDao {
         }
 
         return retorno;
-
     }// fim do alterar
 
     public static boolean excluir(int idEcluir) {

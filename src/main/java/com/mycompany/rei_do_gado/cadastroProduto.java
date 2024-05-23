@@ -8,6 +8,7 @@ import com.mycompany.rei_do_gadoBD.ProdutoDao;
 import com.mycompany.reidogadoclasses.Produto;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  *
@@ -15,9 +16,8 @@ import javax.swing.JOptionPane;
  */
 public class cadastroProduto extends javax.swing.JFrame {
 
-    
     Produto objAlterar = null;
-    
+
     /**
      * Creates new form cadastroProduto
      */
@@ -28,8 +28,7 @@ public class cadastroProduto extends javax.swing.JFrame {
         txtValor.setDocument(new ValidadorNumeros());
         txtValorVenda.setDocument(new ValidadorNumeros());
     }
-    
-    
+
     public cadastroProduto(Produto novoProduto) {
         initComponents();
         this.objAlterar = novoProduto;
@@ -39,8 +38,7 @@ public class cadastroProduto extends javax.swing.JFrame {
         txtValorVenda.setText(Double.toString(objAlterar.getValorVenda()));
         cboTipo.setSelectedItem(String.valueOf(objAlterar.getFaturacao()));
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -213,76 +211,89 @@ public class cadastroProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-      
-       Validador objvalidador = new Validador();
-       if (txtNomeProd.getText().trim().isEmpty()) {
+
+        Validador objValidador = new Validador();
+        if (txtNomeProd.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Digite o nome do produto");
-            objvalidador.ValidarTexto(txtNomeProd);
+            objValidador.ValidarTexto(txtNomeProd);
+        } else {
+            txtNomeProd.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border")); // Limpa a borda
         }
-      
-       if (txtQuant.getText().trim().isEmpty()) {
+
+        if (txtQuant.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Informe a quantidade do produto");
-            objvalidador.ValidarNumero(txtQuant);
+            objValidador.ValidarNumero(txtQuant);
+        } else {
+            txtQuant.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border")); // Limpa a borda
         }
-       if (txtValor.getText().trim().isEmpty()) {
+
+        if (txtValor.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Informe o valor do produto");
-            objvalidador.ValidarNumero(txtValor);
+            objValidador.ValidarNumero(txtValor);
+        } else {
+            txtValor.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border")); // Limpa a borda
         }
-       if (txtValorVenda.getText().trim().isEmpty()) {
+
+        if (txtValorVenda.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Informe o valor de venda do produto");
-            objvalidador.ValidarNumero(txtValorVenda);
+            objValidador.ValidarNumero(txtValorVenda);
+        } else {
+            txtValorVenda.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border")); // Limpa a borda
         }
+
         if (cboTipo.getSelectedItem() == null || cboTipo.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Informe a Faturação do produto");
-            objvalidador.ValidarComboBox(cboTipo);
-        } 
-       
-       
-       if(!objvalidador.hasErro()){
-                   if(objAlterar == null){
-        
-        String nomeProd = txtNomeProd.getText();
-        int quantidade = Integer.parseInt(txtQuant.getText());
-        Double valorEntrada = Double.parseDouble(txtValor.getText());
-        Double valorVenda = Double.parseDouble(txtValorVenda.getText());
-        String faturacao = cboTipo.getSelectedItem().toString();
-        
-        Produto novoProduto = new Produto(nomeProd, quantidade, valorEntrada, valorVenda, faturacao);
-        
-        boolean retorno = ProdutoDao.salvar(novoProduto);
-        if (retorno == true) {
-            JOptionPane.showMessageDialog(rootPane, "Sucesso");
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "Falha");
+            objValidador.ValidarComboBox(cboTipo);
+        } else {
+            cboTipo.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("ComboBox.border")); // Limpa a borda
         }
-        }else{
-            String nomeProd = txtNomeProd.getText();
-            int quantidade = Integer.parseInt(txtQuant.getText());
-            Double valorEntrada = Double.parseDouble(txtValor.getText());
-            Double valorVenda = Double.parseDouble(txtValorVenda.getText());
-            String faturacao = cboTipo.getSelectedItem().toString();
-            
-            objAlterar.setNomeProd(nomeProd);
-            objAlterar.setQuantidade(quantidade);
-            objAlterar.setValorEntrada(valorEntrada);
-            objAlterar.setValorVenda(valorVenda);
-            objAlterar.setFaturacao(faturacao);
-            
-            boolean retorno = ProdutoDao.alterar(objAlterar);
-            
-            if (retorno) {
-                JOptionPane.showMessageDialog(rootPane, "Sucesso");
-            }else {
-                 JOptionPane.showMessageDialog(rootPane, "Falha");
-        }}
-              this.dispose();   
-          
-          }
-       
+
+        if (!objValidador.hasErro()) {
+            if (objAlterar == null) {
+
+                String nomeProd = txtNomeProd.getText();
+                int quantidade = Integer.parseInt(txtQuant.getText());
+                Double valorEntrada = Double.parseDouble(txtValor.getText());
+                Double valorVenda = Double.parseDouble(txtValorVenda.getText());
+                String faturacao = cboTipo.getSelectedItem().toString();
+
+                Produto novoProduto = new Produto(nomeProd, quantidade, valorEntrada, valorVenda, faturacao);
+
+                boolean retorno = ProdutoDao.salvar(novoProduto);
+                if (retorno == true) {
+                    JOptionPane.showMessageDialog(rootPane, "Sucesso");
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Falha");
+                }
+            } else {
+                String nomeProd = txtNomeProd.getText();
+                int quantidade = Integer.parseInt(txtQuant.getText());
+                Double valorEntrada = Double.parseDouble(txtValor.getText());
+                Double valorVenda = Double.parseDouble(txtValorVenda.getText());
+                String faturacao = cboTipo.getSelectedItem().toString();
+
+                objAlterar.setNomeProd(nomeProd);
+                objAlterar.setQuantidade(quantidade);
+                objAlterar.setValorEntrada(valorEntrada);
+                objAlterar.setValorVenda(valorVenda);
+                objAlterar.setFaturacao(faturacao);
+
+                boolean retorno = ProdutoDao.alterar(objAlterar);
+
+                if (retorno) {
+                    JOptionPane.showMessageDialog(rootPane, "Sucesso");
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Falha");
+                }
+            }
+            this.dispose();
+
+        }
+
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void txtNomeProdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeProdKeyPressed
@@ -298,27 +309,27 @@ public class cadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtValorVendaActionPerformed
 
     private void txtQuantKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantKeyTyped
-        
+
         char c = evt.getKeyChar();
-        
-        if ( ((c < '0' || c > '9')) && c != KeyEvent.VK_BACK_SPACE){
+
+        if (((c < '0' || c > '9')) && c != KeyEvent.VK_BACK_SPACE) {
             evt.consume();
         }
-        
+
     }//GEN-LAST:event_txtQuantKeyTyped
 
     private void txtValorVendaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorVendaKeyTyped
-       char c = evt.getKeyChar();
-        
-        if ( ((c < '0' || c > '9' ) && c != '.') && c != KeyEvent.VK_BACK_SPACE){
+        char c = evt.getKeyChar();
+
+        if (((c < '0' || c > '9') && c != '.') && c != KeyEvent.VK_BACK_SPACE) {
             evt.consume();
         }
     }//GEN-LAST:event_txtValorVendaKeyTyped
 
     private void txtValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyTyped
         char c = evt.getKeyChar();
-        
-        if ( ((c < '0' || c > '9' ) && c != '.') && c != KeyEvent.VK_BACK_SPACE){
+
+        if (((c < '0' || c > '9') && c != '.') && c != KeyEvent.VK_BACK_SPACE) {
             evt.consume();
         }
     }//GEN-LAST:event_txtValorKeyTyped

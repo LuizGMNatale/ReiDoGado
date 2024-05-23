@@ -8,6 +8,7 @@ import com.mycompany.rei_do_gadoBD.ClienteDao;
 import com.mycompany.reidogadoclasses.Cliente;
 import javax.print.DocFlavor;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  *
@@ -16,8 +17,7 @@ import javax.swing.JOptionPane;
 public class cadastroCliente extends javax.swing.JFrame {
 
     Cliente objAlterar = null;
-    
-    
+
     public cadastroCliente() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -37,10 +37,10 @@ public class cadastroCliente extends javax.swing.JFrame {
         txtTelefone.setText(String.valueOf(objAlterar.getTelefone()));
         cboSexo.setSelectedItem(String.valueOf(objAlterar.getSexo()));
         cboEstadoCivil.setSelectedItem(String.valueOf(objAlterar.getEstadoCivil()));
-        
+
     }
-    
-    public void limparFormulario(){
+
+    public void limparFormulario() {
         txtNome.setText("");
         txtEndereco.setText("");
         txtCep.setText("");
@@ -51,8 +51,8 @@ public class cadastroCliente extends javax.swing.JFrame {
         txtEmail.setText("");
         txtTelefone.setText("");
 
-
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -298,91 +298,116 @@ public class cadastroCliente extends javax.swing.JFrame {
     private void btnCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadActionPerformed
 
         Validador objValidador = new Validador();
-        
+
         if (txtNome.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Digite o nome do cliente");
             objValidador.ValidarTexto(txtNome);
+        } else {
+            txtNome.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border")); // Limpa a borda
         }
+
         if (txtEndereco.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Digite o endereço do cliente");
             objValidador.ValidarTexto(txtEndereco);
+        } else {
+            txtEndereco.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border")); // Limpa a borda
         }
+
         if (txtCep.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Informe o CEP do cliente");
             objValidador.validarCampoFormatado(txtCep);
+        } else {
+            txtCep.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border")); // Limpa a borda
         }
+
         if (txtCpf.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Informe o CPF do cliente");
             objValidador.validarCampoFormatado(txtCpf);
+        } else {
+            txtCpf.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border")); // Limpa a borda
         }
+
         if (txtEmail.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Informe o Email do cliente");
             objValidador.ValidarTexto(txtEmail);
+        } else {
+            txtEmail.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border")); // Limpa a borda
         }
+
         if (txtTelefone.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Informe o número para contato");
             objValidador.validarCampoFormatado(txtTelefone);
+        } else {
+            txtTelefone.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border")); // Limpa a borda
         }
+
         if (cboSexo.getSelectedItem() == null || cboSexo.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Selecione um genero");
             objValidador.ValidarComboBox(cboSexo);
+        } else {
+            cboSexo.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("ComboBox.border")); // Limpa a borda
         }
+
         if (cboEstadoCivil.getSelectedItem() == null || cboEstadoCivil.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Selecione um Estado civil");
             objValidador.ValidarComboBox(cboEstadoCivil);
-        } 
-        
-        if(!objValidador.hasErro()){
-            
-        if(objAlterar == null){
-        
-        String nome = txtNome.getText();
-        String endereco = txtEndereco.getText();
-        String cep = txtCep.getText();
-        String cpf = txtCpf.getText();
-        String email = txtEmail.getText();
-        String telefone = txtTelefone.getText();
-        String sexo = cboSexo.getSelectedItem().toString();
-        String estadoCivil = cboEstadoCivil.getSelectedItem().toString();
-        
-        Cliente novoCliente = new Cliente(nome, sexo, telefone, email, cpf, endereco, cep, estadoCivil);
-        
-        boolean retorno = ClienteDao.salvar(novoCliente);
-        if (retorno == true) {
-            JOptionPane.showMessageDialog(rootPane, "Sucesso");
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "Falha");
+        } else {
+            cboEstadoCivil.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("ComboBox.border")); // Limpa a borda
         }
-        }else{
-            String nome = txtNome.getText();
-            String endereco = txtEndereco.getText();
-            String cep = txtCep.getText();
-            String Cpf = txtCpf.getText();
-            String email = txtEmail.getText();
-            String telefone = txtTelefone.getText();
-            String sexo = cboSexo.getSelectedItem().toString();
-            String estadoCivil = cboEstadoCivil.getSelectedItem().toString();
-            
-            objAlterar.setNome(nome);
-            objAlterar.setEndereco(endereco);
-            objAlterar.setCep(cep);
-            objAlterar.setcpf(Cpf);
-            objAlterar.setEmail(email);
-            objAlterar.setTelefone(telefone);
-            objAlterar.setSexo(sexo);
-            objAlterar.setEstadoCivil(estadoCivil);
-            
-            boolean retorno = ClienteDao.alterar(objAlterar);
-            
-            if (retorno) {
-                JOptionPane.showMessageDialog(rootPane, "Sucesso");
-            }else {
-                 JOptionPane.showMessageDialog(rootPane, "Falha");
-        }}
-              this.dispose();
-          }
 
-        
+        if (!objValidador.hasErro()) {
+
+            if (objAlterar == null) {
+
+                String nome = txtNome.getText();
+                String endereco = txtEndereco.getText();
+                String cep = txtCep.getText();
+                String cpf = txtCpf.getText();
+                String email = txtEmail.getText();
+                String telefone = txtTelefone.getText();
+                String sexo = cboSexo.getSelectedItem().toString();
+                String estadoCivil = cboEstadoCivil.getSelectedItem().toString();
+
+                Cliente novoCliente = new Cliente(nome, sexo, telefone, email, cpf, endereco, cep, estadoCivil);
+
+                boolean retorno = ClienteDao.salvar(novoCliente);
+                if (retorno == true) {
+                    JOptionPane.showMessageDialog(rootPane, "Sucesso");
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Falha");
+                }
+            } else {
+                String nome = txtNome.getText();
+                String endereco = txtEndereco.getText();
+                String cep = txtCep.getText();
+                String Cpf = txtCpf.getText();
+                String email = txtEmail.getText();
+                String telefone = txtTelefone.getText();
+                String sexo = cboSexo.getSelectedItem().toString();
+                String estadoCivil = cboEstadoCivil.getSelectedItem().toString();
+
+                objAlterar.setNome(nome);
+                objAlterar.setEndereco(endereco);
+                objAlterar.setCep(cep);
+                objAlterar.setcpf(Cpf);
+                objAlterar.setEmail(email);
+                objAlterar.setTelefone(telefone);
+                objAlterar.setSexo(sexo);
+                objAlterar.setEstadoCivil(estadoCivil);
+
+                boolean retorno = ClienteDao.alterar(objAlterar);
+
+                if (retorno) {
+                    JOptionPane.showMessageDialog(rootPane, "Sucesso");
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Falha");
+                }
+            }
+        }
+
+
     }//GEN-LAST:event_btnCadActionPerformed
 
     private void txtEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEnderecoActionPerformed
@@ -394,7 +419,7 @@ public class cadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void cboSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSexoActionPerformed
@@ -453,7 +478,7 @@ public class cadastroCliente extends javax.swing.JFrame {
                 new cadastroCliente().setVisible(true);
             }
         });
-       
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

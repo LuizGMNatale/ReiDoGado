@@ -180,6 +180,12 @@ public class menuPrincipal extends javax.swing.JFrame {
         tabClientes.setMaximumSize(new java.awt.Dimension(1100, 700));
         tabClientes.setPreferredSize(new java.awt.Dimension(1100, 700));
 
+        pnlClientes.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                pnlClientesFocusGained(evt);
+            }
+        });
+
         btnCadCli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adicionar-usuario.png"))); // NOI18N
         btnCadCli.setText("Cadastrar Cliente");
         btnCadCli.addActionListener(new java.awt.event.ActionListener() {
@@ -999,6 +1005,7 @@ public class menuPrincipal extends javax.swing.JFrame {
                     valorEntradaSelecionado, valorVendaSelecionado, faturacaoSelecionada);
 
             cadastroProduto TelaAlterar = new cadastroProduto(ProdAlterar);
+            TelaAlterar.setLocationRelativeTo(null);
             TelaAlterar.setVisible(true);
 
         } else {
@@ -1039,6 +1046,7 @@ public class menuPrincipal extends javax.swing.JFrame {
                     sexoSelecionado, estadoCivilSelecionado);
 
             cadastroCliente telaAlterar = new cadastroCliente(objAlterar);
+            telaAlterar.setLocationRelativeTo(null);
             telaAlterar.setVisible(true);
 
         } else {
@@ -1220,7 +1228,7 @@ public class menuPrincipal extends javax.swing.JFrame {
 
                 // Verifica se a quantidade em estoque é suficiente
                 if (quantidadeProdutoNovo > 0 && quantidadeProdutoNovo <= lista.get(0).getQuantidade()) {
-                   boolean produtoJaAdicionado = false;
+                    boolean produtoJaAdicionado = false;
                     for (int i = 0; i < modelo.getRowCount(); i++) {
                         String nomeProdutoTabela = modelo.getValueAt(i, 1).toString();
                         if (nomeProdutoTabela.equalsIgnoreCase(nomeProdutoNovo)) {
@@ -1579,6 +1587,10 @@ public class menuPrincipal extends javax.swing.JFrame {
         popularTabelaItensVenda(itensVenda);
 
     }//GEN-LAST:event_tabRelatorio1MouseClicked
+
+    private void pnlClientesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pnlClientesFocusGained
+
+    }//GEN-LAST:event_pnlClientesFocusGained
 
     public static void main(String args[]) {
 
